@@ -10,7 +10,7 @@ export const GalaxyHero = ({ activeView, onSelect }: { activeView: View, onSelec
     if (reduceMotion && videoRef.current) {
       videoRef.current.pause();
     } else if (videoRef.current) {
-      videoRef.current.playbackRate = 0.5;
+      videoRef.current.playbackRate = 0.1;
     }
   }, []);
 
