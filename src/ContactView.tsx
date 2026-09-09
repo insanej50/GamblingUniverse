@@ -16,13 +16,13 @@ export const ContactView = () => {
           <div style={{ background: 'rgba(255,255,255,0.03)', padding: '24px', border: '2px solid rgba(139,92,246,0.2)', borderRadius: '10px' }}>
             <h3 style={{ color: 'var(--nova-blue)', fontSize: '16px', marginBottom: '12px', fontFamily: 'var(--font-display)', fontWeight: 700, textTransform: 'uppercase' }}>General Support</h3>
             <p style={{ marginBottom: '0', fontSize: '17px' }}>For general questions, feedback, or issues with our site.</p>
-            <a href="mailto:support@gamblinguniverse.com" style={{ color: 'white', fontWeight: 'bold', textDecoration: 'underline', marginTop: '12px', display: 'inline-block' }}>support@gamblinguniverse.com</a>
+            <a href="mailto:support@gamblinguniverse.net" style={{ color: 'white', fontWeight: 'bold', textDecoration: 'underline', marginTop: '12px', display: 'inline-block' }}>support@gamblinguniverse.net</a>
           </div>
 
           <div style={{ background: 'rgba(255,255,255,0.03)', padding: '24px', border: '2px solid rgba(139,92,246,0.2)', borderRadius: '10px' }}>
             <h3 style={{ color: 'var(--nova-magenta)', fontSize: '16px', marginBottom: '12px', fontFamily: 'var(--font-display)', fontWeight: 700, textTransform: 'uppercase' }}>Partnerships</h3>
             <p style={{ marginBottom: '0', fontSize: '17px' }}>For affiliate programs, advertising, and business inquiries.</p>
-            <a href="mailto:partners@gamblinguniverse.com" style={{ color: 'white', fontWeight: 'bold', textDecoration: 'underline', marginTop: '12px', display: 'inline-block' }}>partners@gamblinguniverse.com</a>
+            <a href="mailto:partners@gamblinguniverse.net" style={{ color: 'white', fontWeight: 'bold', textDecoration: 'underline', marginTop: '12px', display: 'inline-block' }}>partners@gamblinguniverse.net</a>
           </div>
         </div>
 
