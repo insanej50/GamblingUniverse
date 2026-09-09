@@ -1,141 +1,14 @@
 @import "tailwindcss";
 
-@theme {
-  --font-pixel: 'Press Start 2P', cursive;
-
-  --color-arcade-black: #000000;
-  --color-arcade-red: #ff0000;
-  --color-arcade-blue: #00ffff;
-  --color-arcade-yellow: #ffff00;
-  --color-arcade-green: #00ff00;
-  --color-arcade-white: #ffffff;
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-@layer utilities {
-  .pixel-border {
-    box-shadow: 
-      inset 0 0 0 4px #000,
-      inset 0 0 0 8px #fff,
-      0 0 0 4px #fff;
-  }
-  
-  .pixel-border-red {
-    box-shadow: 
-      inset 0 0 0 4px #000,
-      inset 0 0 0 8px #ff0000,
-      0 0 0 4px #ff0000;
-  }
-
-  .pixel-border-blue {
-    box-shadow: 
-      inset 0 0 0 4px #000,
-      inset 0 0 0 8px #00ffff,
-      0 0 0 4px #00ffff;
-  }
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
-  @apply bg-arcade-black text-arcade-white overflow-x-hidden selection:bg-arcade-yellow selection:text-arcade-black font-pixel;
-  image-rendering: pixelated; /* Forces scaling to remain chunky/sharp */
-}
-
-/* Authentic CRT Effect */
-.crt {
-  position: relative;
-}
-
-.crt::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: linear-gradient(
-      rgba(18, 16, 16, 0) 50%, 
-      rgba(0, 0, 0, 0.25) 50%
-    ), 
-    linear-gradient(
-      90deg, 
-      rgba(255, 0, 0, 0.06), 
-      rgba(0, 255, 0, 0.02), 
-      rgba(0, 0, 255, 0.06)
-    );
-  z-index: 50;
-  background-size: 100% 4px, 6px 100%;
-  pointer-events: none;
-}
-
-/* Subtle CRT curvature vignette */
-.crt::after {
-  content: " ";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
-  z-index: 51;
-  pointer-events: none;
-}
-
-/* 8-bit Blink animation (step-end means it toggles instantly, no fading) */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.animate-blink {
-  animation: blink 3s step-end infinite;
-}
-.animate-blink-medium {
-  animation: blink 1.5s step-end infinite;
-}
-.animate-blink-slow {
-  animation: blink 5s step-end infinite;
-}
-
-/* Spaceship Fly Animation */
-@keyframes fly-across {
-  0% { transform: translateX(-20vw) translateY(0); }
-  25% { transform: translateX(25vw) translateY(-5vh); }
-  75% { transform: translateX(80vw) translateY(2vh); }
-  100% { transform: translateX(120vw) translateY(0); }
-}
-
-.animate-fly-across {
-  animation: fly-across 25s linear infinite;
-}
-
-@keyframes fly-across-reverse {
-  0% { transform: translateX(120vw) translateY(0); }
-  25% { transform: translateX(80vw) translateY(5vh); }
-  75% { transform: translateX(25vw) translateY(-2vh); }
-  100% { transform: translateX(-20vw) translateY(0); }
-}
-
-.animate-fly-across-reverse {
-  animation: fly-across-reverse 25s linear infinite;
-}
-
-/* Black Hole Animation */
-@keyframes spin-slow {
-  100% { transform: rotate(360deg); }
-}
-.animate-spin-slow {
-  animation: spin-slow 15s linear infinite;
-}
-
-/* Arcade Marquee Scroll */
-@keyframes marquee {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
-
-.animate-marquee {
-  display: inline-block;
-  animation: marquee 15s linear infinite;
-  white-space: nowrap;
+  margin: 0;
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { guideData } from './guideData';
 import { TermsView } from './TermsView';
 import { ContactView } from './ContactView';
+import { GalaxyHero } from './GalaxyHero';
 import './site.css';
 
 export const MainSite = ({ defaultView }: { defaultView: 'casinos' | 'sportsbooks' | 'terms' | 'contact' }) => {
@@ -79,27 +80,31 @@ export const MainSite = ({ defaultView }: { defaultView: 'casinos' | 'sportsbook
 
   return (
     <>
-      <nav id="site-nav" className={isScrolled ? 'scrolled relative flex justify-center items-center' : 'relative flex justify-center items-center'} aria-label="Primary" style={{ justifyContent: 'center' }}>
-        <a href="#hero" className="nav-logo absolute left-4 md:left-10" onClick={(e) => { e.preventDefault(); window.scrollTo(0, 0); }}>
+      <nav id="site-nav" className={isScrolled ? 'scrolled' : ''} aria-label="Primary">
+        <a href="#hero" className="nav-logo" onClick={(e) => { e.preventDefault(); setActiveView('casinos'); window.scrollTo(0, 0); }}>
           <span className="half-a">8BIT</span><span className="half-b">BET</span>
         </a>
-        <div className="flex justify-center gap-4 items-center">
-          <button 
+        <div className="nav-tabs">
+          <button
             type="button"
-            className={`px-3 md:px-5 py-2 border-2 ${activeView === 'casinos' ? 'border-yellow-400 text-yellow-400 bg-yellow-400/10' : 'border-white/50 text-white/70 hover:border-white hover:text-white'} transition-colors cursor-pointer font-pixel text-xs uppercase tracking-widest`}
+            className={`nav-tab ${activeView === 'casinos' ? 'active' : ''}`}
             onClick={(e) => { e.preventDefault(); setActiveView('casinos'); }}
           >
-            CASINOS
+            Casinos
           </button>
-          <button 
+          <button
             type="button"
-            className={`px-3 md:px-5 py-2 border-2 ${activeView === 'sportsbooks' ? 'border-yellow-400 text-yellow-400 bg-yellow-400/10' : 'border-white/50 text-white/70 hover:border-white hover:text-white'} transition-colors cursor-pointer font-pixel text-xs uppercase tracking-widest`}
+            className={`nav-tab ${activeView === 'sportsbooks' ? 'active' : ''}`}
             onClick={(e) => { e.preventDefault(); setActiveView('sportsbooks'); }}
           >
-            SPORTSBOOKS
+            Sportsbooks
           </button>
         </div>
       </nav>
+
+      {(activeView === 'casinos' || activeView === 'sportsbooks') && (
+        <GalaxyHero activeView={activeView} onSelect={setActiveView} />
+      )}
 
       {activeView === 'casinos' && (
         <section id="casinos" className="listing-section">
