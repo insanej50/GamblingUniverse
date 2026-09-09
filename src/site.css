@@ -1,0 +1,732 @@
+:root{
+  --void:#0b0014;
+  --deep:#170030;
+  --panel:#150029;
+  --pink:#ff2e88;
+  --cyan:#00e5ff;
+  --gold:#ffcc33;
+  --lime:#c6ff00;
+  --ink:#f5f0ff;
+  --muted:#9b8bb4;
+  --line:#3a1a5c;
+}
+
+body.site-active {
+  background:var(--void);
+  color:var(--ink);
+  font-family:'VT323', monospace;
+  overflow:auto; 
+}
+body.site-active::before{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none;
+  z-index:500;
+  background:repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.025) 0px,
+    rgba(255,255,255,0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode:overlay;
+}
+
+/* ================= STICKY NAV ================= */
+#site-nav{
+  position:sticky; top:0; left:0; right:0;
+  z-index:40;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px;
+  padding:14px clamp(16px,4vw,40px);
+  background:rgba(11,0,20,0.72);
+  backdrop-filter:blur(10px);
+  border-bottom:2px solid var(--line);
+  transition:background .3s ease, border-color .3s ease;
+}
+#site-nav.scrolled{ background:rgba(11,0,20,0.94); border-color:rgba(255,255,255,0.08); }
+
+.nav-logo{
+  display:flex; align-items:center; gap:2px;
+  font-size:clamp(14px,2.4vw,19px);
+  letter-spacing:1px;
+  text-decoration:none;
+  flex:0 0 auto;
+}
+.nav-logo .half-a{ color:var(--pink); text-shadow:0 0 8px rgba(255,46,136,0.6); }
+.nav-logo .half-b{ color:var(--cyan); text-shadow:0 0 8px rgba(0,229,255,0.6); }
+
+.nav-links{
+  display:flex; gap:clamp(14px,2.4vw,30px);
+  list-style:none; margin:0; padding:0;
+  font-size:15px; letter-spacing:2px;
+}
+.nav-links a{
+  text-decoration:none; color:var(--muted);
+  padding:4px 2px;
+  border-bottom:2px solid transparent;
+  transition:color .2s ease, border-color .2s ease;
+}
+.nav-links a:hover, .nav-links a:focus-visible{ color:var(--ink); border-color:var(--gold); }
+
+.nav-badge{
+  font-family:'Press Start 2P', monospace;
+  font-size:10px;
+  letter-spacing:1px;
+  color:var(--gold);
+  border:2px solid var(--gold);
+  border-radius:6px;
+  padding:7px 10px;
+  white-space:nowrap;
+  flex:0 0 auto;
+}
+
+@media (max-width:760px){
+  .nav-links{ display:none; }
+}
+
+/* ================= trust strip ================= */
+.trust-strip{
+  position:relative; z-index:2;
+  display:flex; flex-wrap:wrap; justify-content:center; gap:10px;
+  padding:16px 20px;
+  background:var(--void);
+  border-top:2px solid var(--line);
+  border-bottom:2px solid var(--line);
+}
+.trust-chip{
+  display:flex; align-items:center; gap:8px;
+  font-size:14px; letter-spacing:1px; color:var(--muted);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:8px 14px;
+  background:rgba(255,255,255,0.02);
+}
+.trust-chip b{ color:var(--ink); font-weight:400; }
+.trust-dot{ width:7px; height:7px; border-radius:50%; background:var(--lime); box-shadow:0 0 6px var(--lime); flex:0 0 auto; }
+
+/* ================= ticker ================= */
+.ticker-wrap{
+  position:relative; z-index:2;
+  overflow:hidden;
+  background:linear-gradient(90deg, #140026, #1c0032, #140026);
+  border-bottom:2px solid var(--line);
+  padding:10px 0;
+}
+.ticker-track{
+  display:flex; gap:48px;
+  width:max-content;
+  animation:tickerScroll 26s linear infinite;
+}
+.ticker-track span{
+  font-family:'Press Start 2P', monospace;
+  font-size:12px;
+  letter-spacing:1px;
+  color:var(--gold);
+  display:inline-flex; align-items:center; gap:10px;
+  white-space:nowrap;
+}
+.ticker-track span em{ font-style:normal; color:var(--lime); }
+@keyframes tickerScroll{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+
+/* ================= content sections ================= */
+.listing-section{
+  padding:90px clamp(18px,5vw,60px) 100px;
+  position:relative;
+}
+#casinos{ background:linear-gradient(180deg, var(--void) 0%, #1c0032 60%, var(--void) 100%); }
+#sportsbooks{ background:linear-gradient(180deg, var(--void) 0%, #001c22 60%, var(--void) 100%); }
+
+.section-head{
+  max-width:900px;
+  margin:0 auto 46px;
+  display:flex; flex-direction:column; gap:14px;
+  text-align: center;
+  align-items: center;
+  color: #ffffff;
+}
+.section-eyebrow{
+  font-family:'Press Start 2P', monospace;
+  font-size:13px; letter-spacing:4px;
+  display:flex; align-items:center; gap:10px;
+  justify-content: center;
+}
+#casinos .section-eyebrow{ color:var(--pink); }
+#sportsbooks .section-eyebrow{ color:var(--cyan); }
+.section-eyebrow::before{
+  display:none;
+}
+.section-title{
+  font-family:'Press Start 2P', monospace;
+  font-size:clamp(24px, 4vw, 38px);
+  max-width:18ch;
+  line-height:1.35;
+}
+.section-copy{ max-width:62ch; font-size:19px; color:rgba(255, 255, 255, 0.9); line-height:1.55; }
+.top-picks-mark{
+  font-family:'Press Start 2P', monospace;
+  width:max-content;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:8px 11px 7px;
+  border:1px solid var(--gold);
+  border-radius:4px;
+  color:var(--gold);
+  background:rgba(255,204,51,.055);
+  box-shadow:0 0 18px rgba(255,204,51,.12), inset 0 0 12px rgba(255,204,51,.035);
+  font-size:9px;
+  letter-spacing:1px;
+  margin:0 auto 18px;
+}
+.top-picks-mark::before{
+  content:"★";
+  color:var(--pink);
+  text-shadow:0 0 8px var(--pink);
+}
+#sportsbooks .top-picks-mark::before{
+  color:var(--cyan);
+  text-shadow:0 0 8px var(--cyan);
+}
+
+.offer-stack{
+  max-width:960px;
+  margin:0 auto;
+  display:flex; flex-direction:column; gap:22px;
+}
+
+.offer-card{
+  position:relative;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:22px;
+  padding:22px 26px;
+  border-radius:14px;
+  border:2px solid var(--line);
+  background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+}
+#casinos .offer-card{ border-color:rgba(255,46,136,0.28); }
+#sportsbooks .offer-card{ border-color:rgba(0,229,255,0.28); }
+#casinos .offer-card{
+  transition:border-color .28s ease, box-shadow .28s ease, transform .28s ease, background .28s ease;
+}
+#sportsbooks .offer-card{
+  transition:border-color .28s ease, box-shadow .28s ease, transform .28s ease, background .28s ease;
+}
+#casinos .offer-card:hover{
+  transform:translateY(-3px);
+  border-color:var(--pink);
+  background:linear-gradient(180deg, rgba(255,46,136,.065), rgba(255,255,255,.012));
+  box-shadow:0 0 32px rgba(255,46,136,.22), inset 0 0 30px rgba(255,46,136,.05);
+}
+#casinos .offer-card:hover .offer-logo{
+  border-color:var(--pink);
+  box-shadow:0 0 16px rgba(255,46,136,.4);
+}
+#sportsbooks .offer-card:hover{
+  transform:translateY(-3px);
+  border-color:var(--cyan);
+  background:linear-gradient(180deg, rgba(0,229,255,.065), rgba(255,255,255,.012));
+  box-shadow:0 0 32px rgba(0,229,255,.22), inset 0 0 30px rgba(0,229,255,.05);
+}
+#sportsbooks .offer-card:hover .offer-logo{
+  border-color:var(--cyan);
+  box-shadow:0 0 16px rgba(0,229,255,.4);
+}
+.offer-card.featured{
+  border-width:3px;
+  padding:28px 30px;
+}
+#casinos .offer-card.featured{
+  border-color:var(--pink);
+  box-shadow:0 0 32px rgba(255,46,136,0.22), inset 0 0 30px rgba(255,46,136,0.05);
+}
+#sportsbooks .offer-card.featured{
+  border-color:var(--cyan);
+  box-shadow:0 0 32px rgba(0,229,255,0.22), inset 0 0 30px rgba(0,229,255,0.05);
+}
+
+.offer-rank{
+  width:52px; height:52px;
+  border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Press Start 2P', monospace;
+  font-size:16px;
+  border:2px solid var(--line);
+  color:var(--muted);
+  flex:0 0 auto;
+}
+#casinos .offer-rank{ border-color:rgba(255,46,136,0.4); }
+#sportsbooks .offer-rank{ border-color:rgba(0,229,255,0.4); }
+.offer-card.featured .offer-rank{
+  font-size:20px;
+  color:var(--void);
+}
+#casinos .offer-card.featured .offer-rank{ background:var(--pink); border-color:var(--pink); box-shadow:0 0 16px rgba(255,46,136,0.6); }
+#sportsbooks .offer-card.featured .offer-rank{ background:var(--cyan); border-color:var(--cyan); box-shadow:0 0 16px rgba(0,229,255,0.6); }
+.offer-rank.offer-logo{
+  width:112px;
+  height:68px;
+  padding:9px;
+  overflow:hidden;
+  background:#10071c;
+  border-color:rgba(255,46,136,.46);
+  transition:border-color .28s ease, box-shadow .28s ease;
+}
+#casinos .offer-card.featured .offer-rank.offer-logo{
+  background:#10071c;
+  border-color:var(--pink);
+}
+.offer-rank.offer-logo.logo-light{
+  background:#f7f7f7;
+}
+.offer-rank.offer-logo.thunderpick-logo-box{
+  padding:0;
+  background:#061321;
+}
+.offer-rank.offer-logo.thunderpick-logo-box img{
+  width:110%;
+  height:110%;
+  max-width:none;
+  object-fit:cover;
+}
+.offer-rank.offer-logo.fanduel-logo-box{
+  overflow:hidden;
+}
+.offer-rank.offer-logo.fanduel-logo-box img{
+  width:145%;
+  height:145%;
+  max-width:none;
+  object-fit:cover;
+}
+.offer-rank.offer-logo.bet365-logo-box{
+  padding:0;
+  overflow:hidden;
+  background:#087b5b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.offer-rank.offer-logo.bet365-logo-box img{
+  width:160%;
+  height:260%;
+  max-width:none;
+  object-fit:cover;
+  object-position:center;
+}
+.offer-rank.offer-logo.bitstarz-logo-box{
+  padding:0;
+  overflow:hidden;
+  background:#1a1a24;
+}
+.offer-rank.offer-logo.bitstarz-logo-box img{
+  width:100%;
+  height:100%;
+  max-width:none;
+  object-fit:contain;
+  object-position:center;
+  padding: 0.5rem;
+}
+.offer-rank.offer-logo.draftkings-logo-box{
+  padding:0;
+  overflow:hidden;
+  background:#37cd3f;
+}
+.offer-rank.offer-logo.draftkings-logo-box img{
+  width:100%;
+  height:100%;
+  max-width:none;
+  object-fit:cover;
+  object-position:center;
+  padding: 0;
+}
+.offer-rank.offer-logo.duelbits-logo-box{
+  padding:0;
+  overflow:hidden;
+  background:#213747;
+}
+.offer-rank.offer-logo.duelbits-logo-box img{
+  width:100%;
+  height:100%;
+  max-width:none;
+  object-fit:contain;
+  object-position:center;
+}
+.offer-logo img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  image-rendering:auto;
+  filter:drop-shadow(0 0 7px rgba(255,255,255,.16));
+}
+
+.offer-body{ min-width:0; }
+.offer-top-row{ display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-bottom:8px; }
+.offer-name{ font-family:'Press Start 2P', monospace; font-size:22px; letter-spacing:1px; }
+.offer-featured-tag{
+  font-family:'Press Start 2P', monospace;
+  font-size:9px;
+  letter-spacing:1px;
+  color:var(--void);
+  background:var(--gold);
+  padding:5px 8px;
+  border-radius:4px;
+}
+.offer-rating{
+  font-size:15px; color:var(--gold); letter-spacing:1px;
+  display:inline-flex; align-items:center; gap:6px;
+}
+.offer-rating small{ color:var(--muted); }
+
+.offer-bonus{
+  font-size:19px;
+  color:var(--ink);
+  margin-bottom:10px;
+  line-height:1.4;
+}
+.offer-features{
+  list-style:none; margin:0; padding:0;
+  display:flex; flex-wrap:wrap; gap:8px 18px;
+}
+.offer-features li{
+  font-size:14.5px; color:var(--muted);
+  display:flex; align-items:center; gap:6px;
+}
+.offer-features li::before{ content:"▸"; color:inherit; }
+#casinos .offer-features li::before{ color:var(--pink); }
+#sportsbooks .offer-features li::before{ color:var(--cyan); }
+
+.offer-cta{
+  flex:0 0 auto;
+  display:flex; flex-direction:column; align-items:stretch; gap:6px;
+  text-align:center;
+}
+.offer-btn{
+  font-family:'Press Start 2P', monospace;
+  font-size:12px;
+  letter-spacing:1px;
+  padding:14px 18px;
+  border-radius:8px;
+  text-decoration:none;
+  display:inline-block;
+  white-space:nowrap;
+  border:2px solid transparent;
+  transition:transform .15s ease, box-shadow .15s ease;
+  cursor: pointer;
+}
+#casinos .offer-btn{ background:var(--pink); color:var(--void); box-shadow:0 4px 0 #99114f; }
+#sportsbooks .offer-btn{ background:var(--cyan); color:var(--void); box-shadow:0 4px 0 #007e91; }
+.offer-btn:hover{ transform:translateY(-2px); }
+#casinos .offer-btn:hover{ box-shadow:0 6px 0 #99114f, 0 0 18px rgba(255,46,136,0.6); }
+#sportsbooks .offer-btn:hover{ box-shadow:0 6px 0 #007e91, 0 0 18px rgba(0,229,255,0.6); }
+.offer-btn:active{ transform:translateY(2px); }
+#casinos .offer-btn:active{ box-shadow:0 2px 0 #99114f; }
+#sportsbooks .offer-btn:active{ box-shadow:0 2px 0 #007e91; }
+
+.offer-terms{ font-size:12px; color:var(--muted); }
+
+@media (max-width:720px){
+  .offer-card{ grid-template-columns:1fr; text-align:left; }
+  .offer-rank{ margin-bottom:4px; }
+  .offer-cta{ flex-direction:row; justify-content:flex-start; align-items:center; margin-top:6px; }
+  .offer-terms{ text-align:left; }
+}
+
+.view-all-wrap{
+  display:flex;
+  justify-content:center;
+  margin-top:38px;
+}
+.view-all-btn{
+  min-width:190px;
+  padding:14px 24px 12px;
+  border:2px solid var(--pink);
+  border-radius:5px;
+  background:rgba(255,46,136,.06);
+  color:var(--pink);
+  font-family:'Press Start 2P', monospace;
+  font-size:11px;
+  letter-spacing:2px;
+  cursor:pointer;
+  box-shadow:0 4px 0 #65103b, 0 0 18px rgba(255,46,136,.18);
+  transition:transform .22s ease, background .22s ease, box-shadow .22s ease, color .22s ease;
+}
+.view-all-btn:hover,
+.view-all-btn:focus-visible{
+  transform:translateY(-2px);
+  color:#fff;
+  background:rgba(255,46,136,.16);
+  box-shadow:0 6px 0 #65103b, 0 0 27px rgba(255,46,136,.4);
+}
+.view-all-btn:active{
+  transform:translateY(3px);
+  box-shadow:0 1px 0 #65103b, 0 0 14px rgba(255,46,136,.25);
+}
+#sportsbooks .view-all-btn{
+  border-color:var(--cyan);
+  background:rgba(0,229,255,.06);
+  color:var(--cyan);
+  box-shadow:0 4px 0 #007e91, 0 0 18px rgba(0,229,255,.18);
+}
+#sportsbooks .view-all-btn:hover,
+#sportsbooks .view-all-btn:focus-visible{
+  color:#fff;
+  background:rgba(0,229,255,.16);
+  box-shadow:0 6px 0 #007e91, 0 0 27px rgba(0,229,255,.4);
+}
+#sportsbooks .view-all-btn:active{
+  box-shadow:0 1px 0 #007e91, 0 0 14px rgba(0,229,255,.25);
+}
+
+/* ================= footer ================= */
+#site-footer{
+  background:#08000e;
+  border-top:2px solid var(--line);
+  padding:56px clamp(18px,5vw,60px) 30px;
+}
+.footer-top{
+  max-width:1080px; margin:0 auto 34px;
+  display:flex; flex-wrap:wrap; justify-content:space-between; gap:34px;
+}
+.footer-brand{ max-width:340px; }
+.footer-brand .nav-logo{ font-family:'Press Start 2P', monospace; font-size:20px; margin-bottom:12px; }
+.footer-brand p{ font-size:15px; color:var(--muted); line-height:1.6; }
+.footer-cols{ display:flex; gap:50px; flex-wrap:wrap; }
+.footer-col h4{
+  font-family:'Press Start 2P', monospace;
+  font-size:11px; letter-spacing:1px;
+  color:var(--ink); margin:0 0 14px;
+}
+.footer-col ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+.footer-col a{ font-size:15px; color:var(--muted); text-decoration:none; }
+.footer-col a:hover{ color:var(--ink); }
+
+.footer-disclaimer{
+  max-width:1080px; margin:0 auto;
+  border-top:1px solid var(--line);
+  padding-top:24px;
+  display:flex; flex-direction:column; gap:14px;
+}
+.footer-badges{ display:flex; flex-wrap:wrap; gap:10px; }
+.footer-badge{
+  font-size:12px; letter-spacing:1px; color:var(--muted);
+  border:1px solid var(--line); border-radius:5px; padding:5px 9px;
+}
+.footer-legal{ font-size:13px; color:#6a5c86; line-height:1.6; max-width:100ch; }
+.footer-bottom{
+  display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px;
+  font-size:13px; color:#544869; margin-top:10px;
+}
+
+/* ================= CASINO GUIDE ================= */
+.guide-panel{
+  --guide-accent:var(--pink);
+  position:relative;
+  z-index:1;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 82% 4%, rgba(255,46,136,.15), transparent 28%),
+    radial-gradient(circle at 12% 42%, rgba(0,229,255,.09), transparent 30%),
+    linear-gradient(160deg, #160127, #090011 58%);
+}
+.guide-window{
+  min-height:100vh;
+  width:100%;
+}
+.guide-inner{ max-width:980px; margin:auto; padding:clamp(22px,5vw,72px); }
+.guide-topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:30px;
+  padding:10px 0;
+  background:transparent;
+}
+.guide-back{
+  appearance:none; border:1px solid var(--cyan); background:rgba(0,229,255,.08);
+  color:var(--cyan); cursor:pointer; padding:10px 12px; font-family:'Press Start 2P', monospace;
+  font-size:10px; line-height:1.5; text-decoration:none;
+}
+.guide-brand-hero{
+  position:relative;
+  height:clamp(132px,18vw,165px);
+  margin:0 0 76px;
+  overflow:visible;
+  border:1px solid color-mix(in srgb, var(--guide-accent) 72%, transparent);
+  background:#090011;
+  box-shadow:0 0 38px color-mix(in srgb, var(--guide-accent) 22%, transparent);
+}
+.guide-brand-hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg, rgba(5,0,13,.42), transparent 45%),
+    linear-gradient(0deg, rgba(5,0,13,.76), transparent 48%);
+  pointer-events:none;
+}
+.guide-banner{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+}
+.guide-brand-hero[data-brand="bcgame"] .guide-banner{
+  object-position:center top;
+}
+.guide-brand-hero[data-brand="bitstarz"] .guide-banner{
+  object-position:center top;
+}
+.guide-brand-hero[data-brand="sports-thunderpick"] .guide-banner{
+  object-position:center 48%;
+  object-fit:cover;
+}
+.guide-brand-hero[data-brand="sports-draftkings"] .guide-banner,
+.guide-brand-hero[data-brand="sports-fanduel"] .guide-banner,
+.guide-brand-hero[data-brand="sports-duelbits"] .guide-banner{
+  object-position:center center;
+}
+.guide-brand-hero[data-brand="sports-duelbits"] .guide-banner{
+  object-position:center 36%;
+}
+.guide-brand-hero[data-brand="mbit"]{
+  height:clamp(180px,24vw,220px);
+}
+.guide-brand-hero[data-brand="mbit"] .guide-banner{
+  object-position:center 42%;
+}
+.guide-logo-card{
+  position:absolute;
+  z-index:1;
+  left:clamp(18px,4vw,38px);
+  bottom:-43px;
+  width:clamp(150px,24vw,220px);
+  height:86px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px 20px;
+  border:2px solid var(--guide-accent);
+  background:#0b0711;
+  box-shadow:5px 5px 0 rgba(0,0,0,.72), 0 0 24px color-mix(in srgb, var(--guide-accent) 34%, transparent);
+}
+.guide-logo{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+.guide-logo-card[data-brand="bet365"]{
+  padding:0;
+  overflow:hidden;
+  background:#087b5b;
+}
+.guide-logo-card[data-brand="bet365"] .guide-logo{
+  width:154%;
+  height:260%;
+  max-width:none;
+}
+.guide-logo-card[data-brand="bcgame"]{
+  padding:7px 14px;
+}
+.guide-logo-card[data-brand="sports-thunderpick"]{ background:#061321; }
+.guide-logo-card[data-brand="sports-thunderpick"]{
+  padding:0;
+  overflow:hidden;
+}
+.guide-logo-card[data-brand="sports-thunderpick"] .guide-logo{
+  width:150%;
+  height:165%;
+  max-width:none;
+  object-fit:cover;
+}
+.guide-logo-card[data-brand="sports-draftkings"]{ background:#37cd3f; }
+.guide-logo-card[data-brand="sports-draftkings"] .guide-logo{
+  width:160%;
+  height:160%;
+  max-width:none;
+  object-fit:contain;
+  padding: 0;
+}
+.guide-logo-card[data-brand="sports-fanduel"]{ background:#0d5fc2; }
+.guide-logo-card[data-brand="sports-fanduel"] .guide-logo{
+  width:145%;
+  height:145%;
+  max-width:none;
+  object-fit:cover;
+}
+.guide-logo-card[data-brand="sports-duelbits"]{ background:#213241; }
+.guide-logo-card[data-brand="sports-duelbits"]{
+  padding:0;
+  overflow:hidden;
+}
+.guide-logo-card[data-brand="sports-duelbits"] .guide-logo{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.guide-logo-card[data-brand="mbit"]{
+  padding:8px 12px;
+  overflow:hidden;
+}
+.guide-logo-card[data-brand="mbit"] .guide-logo{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.guide-title{ margin:0; font-family:'Press Start 2P', monospace; font-size:clamp(24px,5vw,42px); line-height:1.25; color:#fff; text-shadow:3px 3px 0 var(--guide-accent), 0 0 20px rgba(0,229,255,.45); }
+.guide-summary{ font-size:clamp(20px,3vw,25px); line-height:1.35; color:#f9eafd; margin:24px 0 12px; }
+.guide-checked{ color:var(--muted); letter-spacing:2px; font-size:14px; border-bottom:1px solid var(--line); padding-bottom:24px; }
+.guide-section{ margin-top:30px; border-left:3px solid var(--guide-accent); padding:4px 0 4px 20px; }
+.guide-section:nth-of-type(even){ border-color:var(--cyan); }
+.guide-section h2{ font-family:'Press Start 2P', monospace; color:var(--gold); font-size:15px; line-height:1.55; margin:0 0 10px; }
+.guide-section p,.guide-section li{ font-size:19px; line-height:1.42; color:#eee5f8; }
+.guide-section p{ margin:0; }
+.guide-section ul{ margin:10px 0 0; padding-left:20px; }
+.guide-section a{ color:var(--cyan); text-decoration-thickness:1px; text-underline-offset:3px; }
+.guide-notice{ margin-top:32px; padding:18px; border:1px solid var(--gold); background:rgba(255,204,51,.08); color:#fff4c2; font-size:17px; line-height:1.4; }
+.guide-claim{ font-family:'Press Start 2P', monospace; display:block; margin-top:28px; text-align:center; background:var(--guide-accent); color:var(--void); padding:18px; font-size:13px; text-decoration:none; box-shadow:0 5px 0 rgba(0,0,0,.62), 0 0 22px color-mix(in srgb, var(--guide-accent) 28%, transparent); transition: transform 0.2s; }
+.guide-claim:hover{ background:var(--gold); transform:translateY(-2px); }
+@media (max-width:560px){
+  .guide-topbar{ align-items:flex-start; }
+  .guide-back{ font-size:8px; }
+  .guide-brand-hero{ height:132px; margin-bottom:65px; }
+  .guide-brand-hero[data-brand="mbit"]{ height:180px; }
+  .guide-logo-card{ height:72px; bottom:-36px; padding:12px 16px; }
+  .guide-section{ padding-left:14px; }
+  .guide-section p,.guide-section li{ font-size:18px; }
+}
+
+.bitstarz-logo-box img,
+.mbit-logo-box img,
+.bcgame-logo-box img {
+  object-fit: contain;
+  padding: 12px;
+}
+
+.offer-rank.offer-logo.bet365-logo-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.offer-rank.offer-logo.bet365-logo-box img {
+  width: 160%;
+  height: 260%;
+  max-width: none;
+  object-fit: cover;
+  padding: 0;
+}
+.offer-rank.offer-logo.mbit-logo-box {
+  background: #0b0711;
+}
+.offer-rank.offer-logo.bcgame-logo-box {
+  background: #0b0711;
+}

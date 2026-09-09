@@ -1,0 +1,8 @@
+{
+  "name": "8BITBET",
+  "description": "An arcade-themed crypto casino and sportsbook comparison platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
