@@ -39,9 +39,9 @@ export const GalaxyHero = ({ activeView, onSelect }: { activeView: View, onSelec
       </div>
 
       <div className="hero-content">
-        <span className="hero-kicker">WELCOME TO THE GAMBLING UNIVERSE</span>
+        <span className="hero-kicker">YOUR GUIDE TO CRYPTO CASINOS &amp; SPORTSBOOKS</span>
         <h1 className="hero-title">
-          <span className="hero-title-a">8BIT</span><span className="hero-title-b">BET</span>
+          <span className="hero-title-a">GAMBLING</span> <span className="hero-title-b">UNIVERSE</span>
         </h1>
         <p className="hero-tagline">
           We chart the crypto casinos and sportsbooks worth your first deposit — bonuses, terms and payout speed, compared in plain language.

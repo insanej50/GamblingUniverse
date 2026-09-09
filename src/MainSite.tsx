@@ -82,7 +82,7 @@ export const MainSite = ({ defaultView }: { defaultView: 'casinos' | 'sportsbook
     <>
       <nav id="site-nav" className={isScrolled ? 'scrolled' : ''} aria-label="Primary">
         <a href="#hero" className="nav-logo" onClick={(e) => { e.preventDefault(); setActiveView('casinos'); window.scrollTo(0, 0); }}>
-          <span className="half-a">8BIT</span><span className="half-b">BET</span>
+          <span className="half-a">GAMBLING</span>&nbsp;<span className="half-b">UNIVERSE</span>
         </a>
         <div className="nav-tabs">
           <button
@@ -315,7 +315,7 @@ export const MainSite = ({ defaultView }: { defaultView: 'casinos' | 'sportsbook
         <div className="footer-top">
           <div className="footer-brand">
             <a href="#hero" className="nav-logo" onClick={(e) => { e.preventDefault(); window.scrollTo(0, 0); }}>
-              <span className="half-a">8BIT</span><span className="half-b">BET</span>
+              <span className="half-a">GAMBLING</span>&nbsp;<span className="half-b">UNIVERSE</span>
             </a>
             <p>An independent guide to crypto casinos and sportsbooks. We test the bonuses, terms, and payout speed so you don't have to.</p>
           </div>
@@ -343,9 +343,9 @@ export const MainSite = ({ defaultView }: { defaultView: 'casinos' | 'sportsbook
             <span className="footer-badge">PLAY RESPONSIBLY</span>
             <span className="footer-badge">INDEPENDENT REVIEWS</span>
           </div>
-          <p className="footer-legal">8BITBET is an independent affiliate site — we may earn a commission when you sign up through our links, at no extra cost to you. This never affects our rankings. Offers, odds, and terms change often; always confirm details on the operator's site before depositing. Gambling involves risk — only wager what you can afford to lose. If it stops being fun, that's the signal to stop. In the US, the National Council on Problem Gambling helpline is 1-800-522-4700.</p>
+          <p className="footer-legal">GamblingUniverse is an independent affiliate site — we may earn a commission when you sign up through our links, at no extra cost to you. This never affects our rankings. Offers, odds, and terms change often; always confirm details on the operator's site before depositing. Gambling involves risk — only wager what you can afford to lose. If it stops being fun, that's the signal to stop. In the US, the National Council on Problem Gambling helpline is 1-800-522-4700.</p>
           <div className="footer-bottom">
-            <span>© 2026 8BITBET. Not affiliated with any operator listed.</span>
+            <span>© 2026 GamblingUniverse. Not affiliated with any operator listed.</span>
             <span>Built for players who grew up on cartridges.</span>
           </div>
         </div>

@@ -14,7 +14,7 @@ export const TermsView = () => {
         <div>
           <h3 style={{ color: 'white', fontSize: '18px', marginBottom: '12px', fontFamily: 'var(--font-display)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>1. Introduction</h3>
           <p>
-            Welcome to 8BITBET ("we", "us", "our"). These Terms and Conditions govern your access to and use of our website. 
+            Welcome to GamblingUniverse ("we", "us", "our"). These Terms and Conditions govern your access to and use of our website. 
             By accessing or using our site, you agree to be bound by these Terms. If you do not agree with any part of these Terms, 
             you must not use our website.
           </p>
@@ -23,7 +23,7 @@ export const TermsView = () => {
         <div>
           <h3 style={{ color: 'white', fontSize: '18px', marginBottom: '12px', fontFamily: 'var(--font-display)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>2. Nature of the Website</h3>
           <p>
-            8BITBET is an independent informational and comparison platform. We are <strong>not</strong> an online casino, 
+            GamblingUniverse is an independent informational and comparison platform. We are <strong>not</strong> an online casino, 
             sportsbook, or gambling operator. We do not accept wagers, process transactions, or hold funds. All reviews, 
             rankings, and promotional offers displayed on this site are for informational purposes only.
           </p>
@@ -50,7 +50,7 @@ export const TermsView = () => {
         <div>
           <h3 style={{ color: 'white', fontSize: '18px', marginBottom: '12px', fontFamily: 'var(--font-display)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>5. Third-Party Links & Offers</h3>
           <p>
-            All bonuses, promotions, and odds listed on 8BITBET are subject to the terms and conditions of the respective third-party 
+            All bonuses, promotions, and odds listed on GamblingUniverse are subject to the terms and conditions of the respective third-party 
             operators. We do our best to keep this information accurate and up-to-date, but terms can change without notice. We accept 
             no liability for any discrepancies, expired offers, or issues that arise between you and the operator. Always verify the 
             terms directly on the operator's official website.
@@ -60,7 +60,7 @@ export const TermsView = () => {
         <div>
           <h3 style={{ color: 'white', fontSize: '18px', marginBottom: '12px', fontFamily: 'var(--font-display)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>6. Limitation of Liability</h3>
           <p>
-            You engage in gambling at your own risk. 8BITBET, its owners, and its employees will not be held liable for any financial 
+            You engage in gambling at your own risk. GamblingUniverse, its owners, and its employees will not be held liable for any financial 
             losses, damages, or disputes arising from your use of third-party gambling websites. By using this site, you acknowledge 
             that gambling involves risk and that you should only wager funds you can afford to lose.
           </p>
