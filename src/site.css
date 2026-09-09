@@ -805,22 +805,3 @@ body.site-active::before{
   .hero-actions{ flex-direction:column; width:100%; }
   .hero-cta{ width:100%; }
 }
-
-/* ============ LEGACY LOCK: Terms & Contact pages keep their original look ============ */
-#terms,
-#contact{
-  font-family:'VT323', monospace;
-}
-#terms .section-head,
-#contact .section-head{
-  max-width:900px; margin:0 auto 46px; display:flex; flex-direction:column; gap:14px;
-  text-align:center; align-items:center; color:#ffffff;
-}
-#terms .section-title,
-#contact .section-title{
-  font-family:'Press Start 2P', monospace; font-weight:400; font-size:clamp(24px, 4vw, 38px); max-width:18ch; line-height:1.35;
-}
-#terms .section-copy,
-#contact .section-copy{
-  max-width:62ch; font-size:19px; color:rgba(255, 255, 255, 0.9); line-height:1.55;
-}
