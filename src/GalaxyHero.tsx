@@ -9,7 +9,8 @@ export const GalaxyHero = ({ activeView, onSelect }: { activeView: View, onSelec
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion && videoRef.current) {
       videoRef.current.pause();
-       videoRef.current.playbackRate = 0.10;
+    } else if (videoRef.current) {
+      videoRef.current.playbackRate = 0.5;
     }
   }, []);
 
