@@ -31,7 +31,9 @@ body.site-active {
   overflow:auto;
 }
 body.site-active.secondary-bg {
-  background-image: url('/hero-slowloop-page-bg.jpg');
+  background-image:
+    linear-gradient(180deg, rgba(5,4,15,0.1) 0%, rgba(5,4,15,0.2) 50%, rgba(5,4,15,0.3) 100%),
+    url('/hero-slowloop-page-bg.jpg');
   background-size:cover;
   background-position:center top;
   background-repeat:no-repeat;
