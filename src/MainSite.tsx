@@ -7,10 +7,11 @@ import { AboutView } from './AboutView';
 import { FAQView } from './FAQView';
 import { BonusesView } from './BonusesView';
 import { PaymentsView } from './PaymentsView';
+import { GamesView } from './GamesView';
 import { GalaxyHero } from './GalaxyHero';
 import './site.css';
 
-type ViewKey = 'casinos' | 'sportsbooks' | 'terms' | 'contact' | 'responsible' | 'about' | 'faq' | 'bonuses' | 'payments';
+type ViewKey = 'casinos' | 'sportsbooks' | 'terms' | 'contact' | 'responsible' | 'about' | 'faq' | 'bonuses' | 'payments' | 'games';
 
 export const MainSite = ({ defaultView }: { defaultView: ViewKey }) => {
   const [activeView, setActiveView] = useState<ViewKey>(defaultView);
@@ -325,6 +326,10 @@ export const MainSite = ({ defaultView }: { defaultView: ViewKey }) => {
         <PaymentsView onSelectGuide={openGuide} />
       )}
 
+      {activeView === 'games' && (
+        <GamesView onExplore={() => { setActiveView('bonuses'); window.scrollTo(0, 0); }} />
+      )}
+
       {activeView === 'terms' && (
         <TermsView />
       )}
@@ -361,6 +366,7 @@ export const MainSite = ({ defaultView }: { defaultView: ViewKey }) => {
                 <li><a href="#sportsbooks" onClick={(e) => { e.preventDefault(); setActiveView('sportsbooks'); }}>Sportsbooks</a></li>
                 <li><a href="#bonuses" onClick={(e) => { e.preventDefault(); setActiveView('bonuses'); window.scrollTo(0, 0); }}>Bonuses</a></li>
                 <li><a href="#payments" onClick={(e) => { e.preventDefault(); setActiveView('payments'); window.scrollTo(0, 0); }}>Crypto Guides</a></li>
+                <li><a href="#games" onClick={(e) => { e.preventDefault(); setActiveView('games'); window.scrollTo(0, 0); }}>Games</a></li>
               </ul>
             </div>
             <div className="footer-col">
