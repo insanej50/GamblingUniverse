@@ -37,6 +37,13 @@ export const MainSite = ({ defaultView }: { defaultView: ViewKey }) => {
     return () => document.body.classList.remove('site-active');
   }, []);
 
+  const isHomeView = !activeGuide && (activeView === 'casinos' || activeView === 'sportsbooks');
+
+  useEffect(() => {
+    document.body.classList.toggle('secondary-bg', !isHomeView);
+    return () => document.body.classList.remove('secondary-bg');
+  }, [isHomeView]);
+
   const openGuide = (key: string) => {
     setActiveGuide(key);
     window.scrollTo(0, 0);
