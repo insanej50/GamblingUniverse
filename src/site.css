@@ -131,7 +131,7 @@ body.site-active::before{
   z-index:0;
   pointer-events:none;
   background:
-    radial-gradient(ellipse 80% 60% at 50% 45%, rgba(5,4,15,0.2) 0%, rgba(5,4,15,0.4) 65%, rgba(5,4,15,0.62) 100%),
+    radial-gradient(ellipse 80% 60% at 50% 45%, rgba(5,4,15,0.1) 0%, rgba(5,4,15,0.3) 65%, rgba(5,4,15,0.50) 100%),
     linear-gradient(180deg, var(--nova-bg) 0%, transparent 14%, transparent 82%, var(--nova-bg) 100%);
 }
 
