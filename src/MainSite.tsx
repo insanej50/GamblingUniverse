@@ -9,6 +9,7 @@ import { BonusesView } from './BonusesView';
 import { PaymentsView } from './PaymentsView';
 import { GamesView } from './GamesView';
 import { GalaxyHero } from './GalaxyHero';
+import { NewsletterModal } from './NewsletterModal';
 import './site.css';
 
 type ViewKey = 'casinos' | 'sportsbooks' | 'terms' | 'contact' | 'responsible' | 'about' | 'faq' | 'bonuses' | 'payments' | 'games';
@@ -400,6 +401,8 @@ export const MainSite = ({ defaultView }: { defaultView: ViewKey }) => {
           </div>
         </div>
       </footer>
+
+      <NewsletterModal />
     </>
   );
 };
