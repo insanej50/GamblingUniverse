@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { guideData } from './guideData';
 import { TermsView } from './TermsView';
 import { ContactView } from './ContactView';
@@ -14,10 +14,53 @@ import './site.css';
 
 type ViewKey = 'casinos' | 'sportsbooks' | 'terms' | 'contact' | 'responsible' | 'about' | 'faq' | 'bonuses' | 'payments' | 'games';
 
+const VIEW_KEYS: ViewKey[] = ['casinos', 'sportsbooks', 'terms', 'contact', 'responsible', 'about', 'faq', 'bonuses', 'payments', 'games'];
+
+const pathForState = (view: ViewKey, guide: string | null): string => {
+  if (guide) return `/guide/${guide}`;
+  return view === 'casinos' ? '/' : `/${view}`;
+};
+
+const stateForPath = (pathname: string, fallback: ViewKey): { view: ViewKey; guide: string | null } => {
+  const guideMatch = pathname.match(/^\/guide\/([^/]+)\/?$/);
+  if (guideMatch && guideData[guideMatch[1]]) {
+    return { view: fallback, guide: guideMatch[1] };
+  }
+  const key = pathname.replace(/^\/|\/$/g, '');
+  if ((VIEW_KEYS as string[]).includes(key)) {
+    return { view: key as ViewKey, guide: null };
+  }
+  return { view: fallback, guide: null };
+};
+
 export const MainSite = ({ defaultView }: { defaultView: ViewKey }) => {
-  const [activeView, setActiveView] = useState<ViewKey>(defaultView);
-  const [activeGuide, setActiveGuide] = useState<string | null>(null);
+  const [activeView, setActiveView] = useState<ViewKey>(() => stateForPath(window.location.pathname, defaultView).view);
+  const [activeGuide, setActiveGuide] = useState<string | null>(() => stateForPath(window.location.pathname, defaultView).guide);
   const [isScrolled, setIsScrolled] = useState(false);
+  const isPopStateRef = useRef(false);
+
+  useEffect(() => {
+    const onPopState = () => {
+      const next = stateForPath(window.location.pathname, defaultView);
+      isPopStateRef.current = true;
+      setActiveGuide(next.guide);
+      setActiveView(next.view);
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, [defaultView]);
+
+  useEffect(() => {
+    if (isPopStateRef.current) {
+      isPopStateRef.current = false;
+      return;
+    }
+    const path = pathForState(activeView, activeGuide);
+    if (window.location.pathname !== path) {
+      window.history.pushState({}, '', path);
+    }
+  }, [activeView, activeGuide]);
 
   useEffect(() => {
     const handleScroll = () => {
