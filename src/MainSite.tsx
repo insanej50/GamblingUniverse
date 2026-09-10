@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { guideData } from './guideData';
 import { TermsView } from './TermsView';
 import { ContactView } from './ContactView';
+import { ResponsibleGamblingView } from './ResponsibleGamblingView';
+import { AboutView } from './AboutView';
+import { FAQView } from './FAQView';
 import { GalaxyHero } from './GalaxyHero';
 import './site.css';
 
-export const MainSite = ({ defaultView }: { defaultView: 'casinos' | 'sportsbooks' | 'terms' | 'contact' }) => {
-  const [activeView, setActiveView] = useState<'casinos' | 'sportsbooks' | 'terms' | 'contact'>(defaultView as 'casinos' | 'sportsbooks' | 'terms' | 'contact');
+type ViewKey = 'casinos' | 'sportsbooks' | 'terms' | 'contact' | 'responsible' | 'about' | 'faq';
+
+export const MainSite = ({ defaultView }: { defaultView: ViewKey }) => {
+  const [activeView, setActiveView] = useState<ViewKey>(defaultView);
   const [activeGuide, setActiveGuide] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -311,6 +316,18 @@ export const MainSite = ({ defaultView }: { defaultView: 'casinos' | 'sportsbook
         <ContactView />
       )}
 
+      {activeView === 'responsible' && (
+        <ResponsibleGamblingView />
+      )}
+
+      {activeView === 'about' && (
+        <AboutView />
+      )}
+
+      {activeView === 'faq' && (
+        <FAQView />
+      )}
+
       <footer id="site-footer">
         <div className="footer-top">
           <div className="footer-brand">
@@ -332,6 +349,14 @@ export const MainSite = ({ defaultView }: { defaultView: 'casinos' | 'sportsbook
               <ul>
                 <li><a href="#terms" onClick={(e) => { e.preventDefault(); setActiveView('terms'); window.scrollTo(0, 0); }}>Terms and Conditions</a></li>
                 <li><a href="#contact" onClick={(e) => { e.preventDefault(); setActiveView('contact'); window.scrollTo(0, 0); }}>Contact us</a></li>
+                <li><a href="#responsible" onClick={(e) => { e.preventDefault(); setActiveView('responsible'); window.scrollTo(0, 0); }}>Responsible Gambling</a></li>
+              </ul>
+            </div>
+            <div className="footer-col">
+              <h4>COMPANY</h4>
+              <ul>
+                <li><a href="#about" onClick={(e) => { e.preventDefault(); setActiveView('about'); window.scrollTo(0, 0); }}>About Us</a></li>
+                <li><a href="#faq" onClick={(e) => { e.preventDefault(); setActiveView('faq'); window.scrollTo(0, 0); }}>FAQ</a></li>
               </ul>
             </div>
           </div>
