@@ -19,7 +19,7 @@ export const GalaxyHero = ({ activeView, onSelect }: { activeView: View, onSelec
       <video
         ref={videoRef}
         className="hero-video"
-        poster="/hero-nebula-poster.jpg"
+        poster="/hero-slowloop-poster.jpg"
         autoPlay
         muted
         loop
@@ -27,8 +27,9 @@ export const GalaxyHero = ({ activeView, onSelect }: { activeView: View, onSelec
         preload="auto"
         aria-hidden="true"
       >
-        <source src="/hero-nebula-mobile.mp4" media="(max-width: 768px)" type="video/mp4" />
-        <source src="/hero-nebula-desktop.mp4" type="video/mp4" />
+        <source src="/hero-slowloop-mobile.mp4" media="(max-width: 768px)" type="video/mp4" />
+        <source src="/hero-slowloop-4k.mp4" media="(min-width: 2560px)" type="video/mp4" />
+        <source src="/hero-slowloop-desktop.mp4" type="video/mp4" />
       </video>
       <div className="hero-overlay" aria-hidden="true" />
 
