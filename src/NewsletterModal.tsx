@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
-const STORAGE_KEY = 'gu_newsletter_dismissed';
+const SUBSCRIBED_KEY = 'gu_newsletter_subscribed';
+const DISMISSED_PAGES_KEY = 'gu_newsletter_dismissed_pages';
 
-export const NewsletterModal = () => {
+const getDismissedPages = (): string[] => {
+  try {
+    return JSON.parse(sessionStorage.getItem(DISMISSED_PAGES_KEY) || '[]');
+  } catch {
+    return [];
+  }
+};
+
+export const NewsletterModal = ({ pageKey }: { pageKey: string }) => {
   const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [name, setName] = useState('');
@@ -10,21 +19,26 @@ export const NewsletterModal = () => {
   const [phone, setPhone] = useState('');
 
   useEffect(() => {
-    if (localStorage.getItem(STORAGE_KEY)) return;
+    setOpen(false);
+    if (localStorage.getItem(SUBSCRIBED_KEY)) return;
+    if (getDismissedPages().includes(pageKey)) return;
 
     const timer = window.setTimeout(() => setOpen(true), 10000);
     return () => window.clearTimeout(timer);
-  }, []);
+  }, [pageKey]);
 
   const dismiss = () => {
     setOpen(false);
-    localStorage.setItem(STORAGE_KEY, '1');
+    const dismissedPages = getDismissedPages();
+    if (!dismissedPages.includes(pageKey)) {
+      sessionStorage.setItem(DISMISSED_PAGES_KEY, JSON.stringify([...dismissedPages, pageKey]));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
-    localStorage.setItem(STORAGE_KEY, '1');
+    localStorage.setItem(SUBSCRIBED_KEY, '1');
     window.setTimeout(() => setOpen(false), 1800);
   };
 

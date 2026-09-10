@@ -83,7 +83,7 @@ export const MainSite = ({ defaultView }: { defaultView: ViewKey }) => {
             </a>
           </div>
         </div>
-        <NewsletterModal />
+        <NewsletterModal pageKey={`guide-${activeGuide}`} />
       </main>
     );
   }
@@ -403,7 +403,7 @@ export const MainSite = ({ defaultView }: { defaultView: ViewKey }) => {
         </div>
       </footer>
 
-      <NewsletterModal />
+      <NewsletterModal pageKey={activeView} />
     </>
   );
 };
