@@ -5,10 +5,11 @@ import { ContactView } from './ContactView';
 import { ResponsibleGamblingView } from './ResponsibleGamblingView';
 import { AboutView } from './AboutView';
 import { FAQView } from './FAQView';
+import { BonusesView } from './BonusesView';
 import { GalaxyHero } from './GalaxyHero';
 import './site.css';
 
-type ViewKey = 'casinos' | 'sportsbooks' | 'terms' | 'contact' | 'responsible' | 'about' | 'faq';
+type ViewKey = 'casinos' | 'sportsbooks' | 'terms' | 'contact' | 'responsible' | 'about' | 'faq' | 'bonuses';
 
 export const MainSite = ({ defaultView }: { defaultView: ViewKey }) => {
   const [activeView, setActiveView] = useState<ViewKey>(defaultView);
@@ -103,6 +104,13 @@ export const MainSite = ({ defaultView }: { defaultView: ViewKey }) => {
             onClick={(e) => { e.preventDefault(); setActiveView('sportsbooks'); }}
           >
             Sportsbooks
+          </button>
+          <button
+            type="button"
+            className={`nav-tab ${activeView === 'bonuses' ? 'active' : ''}`}
+            onClick={(e) => { e.preventDefault(); setActiveView('bonuses'); window.scrollTo(0, 0); }}
+          >
+            Bonuses
           </button>
         </div>
       </nav>
@@ -308,6 +316,10 @@ export const MainSite = ({ defaultView }: { defaultView: ViewKey }) => {
         </section>
       )}
 
+      {activeView === 'bonuses' && (
+        <BonusesView onSelectGuide={openGuide} />
+      )}
+
       {activeView === 'terms' && (
         <TermsView />
       )}
@@ -342,6 +354,7 @@ export const MainSite = ({ defaultView }: { defaultView: ViewKey }) => {
               <ul>
                 <li><a href="#casinos" onClick={(e) => { e.preventDefault(); setActiveView('casinos'); }}>Casinos</a></li>
                 <li><a href="#sportsbooks" onClick={(e) => { e.preventDefault(); setActiveView('sportsbooks'); }}>Sportsbooks</a></li>
+                <li><a href="#bonuses" onClick={(e) => { e.preventDefault(); setActiveView('bonuses'); window.scrollTo(0, 0); }}>Bonuses</a></li>
               </ul>
             </div>
             <div className="footer-col">
