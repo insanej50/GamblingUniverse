@@ -12,24 +12,8 @@ export const NewsletterModal = () => {
   useEffect(() => {
     if (localStorage.getItem(STORAGE_KEY)) return;
 
-    const show = () => setOpen(true);
-
-    // Exit-intent trigger for desktop
-    const handleMouseOut = (e: MouseEvent) => {
-      if (e.clientY <= 0 && !e.relatedTarget) {
-        show();
-        document.removeEventListener('mouseout', handleMouseOut);
-      }
-    };
-    document.addEventListener('mouseout', handleMouseOut);
-
-    // Fallback timer for touch devices / no exit-intent
-    const timer = window.setTimeout(show, 20000);
-
-    return () => {
-      document.removeEventListener('mouseout', handleMouseOut);
-      window.clearTimeout(timer);
-    };
+    const timer = window.setTimeout(() => setOpen(true), 10000);
+    return () => window.clearTimeout(timer);
   }, []);
 
   const dismiss = () => {

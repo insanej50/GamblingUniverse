@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { NewsletterInline } from './NewsletterInline';
 
 type View = 'casinos' | 'sportsbooks' | 'terms' | 'contact';
 
@@ -57,8 +56,6 @@ export const GalaxyHero = ({ activeView, onSelect }: { activeView: View, onSelec
             Browse Sportsbooks
           </button>
         </div>
-
-        <NewsletterInline />
       </div>
     </section>
   );

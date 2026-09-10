@@ -83,6 +83,7 @@ export const MainSite = ({ defaultView }: { defaultView: ViewKey }) => {
             </a>
           </div>
         </div>
+        <NewsletterModal />
       </main>
     );
   }
