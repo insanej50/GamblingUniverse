@@ -1,0 +1,2438 @@
+:root{
+  --void:#0b0014;
+  --deep:#170030;
+  --panel:#150029;
+  --pink:#ff2e88;
+  --cyan:#00e5ff;
+  --gold:#ffcc33;
+  --lime:#c6ff00;
+  --ink:#f5f0ff;
+  --muted:#9b8bb4;
+  --line:#3a1a5c;
+
+  /* Galaxy theme tokens (new design) */
+  --nova-bg:#05040f;
+  --nova-bg-2:#0c0a24;
+  --nova-violet:#8b5cf6;
+  --nova-blue:#38bdf8;
+  --nova-magenta:#e879f9;
+  --nova-gold:#fbbf24;
+  --nova-ink:#f3f1ff;
+  --nova-muted:#a79fc9;
+  --nova-line:#2c2657;
+  --font-display:'Orbitron', sans-serif;
+  --font-body:'Rubik', sans-serif;
+}
+
+body.site-active {
+  background:var(--void);
+  color:var(--ink);
+  font-family:'VT323', monospace;
+  overflow:auto;
+}
+body.site-active.secondary-bg {
+  padding-top:56px;
+  background-image:
+    linear-gradient(180deg, rgba(5,4,15,0.2) 0%, rgba(5,4,15,0.3) 50%, rgba(5,4,15,0.4) 100%),
+    url('/hero-slowloop-page-bg.jpg');
+  background-size:cover;
+  background-position:center top;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+}
+@media (max-width: 768px){
+  body.site-active.secondary-bg{ background-attachment:scroll; }
+}
+@media (max-width: 480px){
+  body.site-active.secondary-bg{ padding-top:88px; }
+}
+body.site-active::before{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none;
+  z-index:500;
+  background:repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.025) 0px,
+    rgba(255,255,255,0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode:overlay;
+}
+
+/* ================= FIXED NAV ================= */
+#site-nav{
+  position:fixed; top:0; left:0; right:0;
+  width:100%;
+  box-sizing:border-box;
+  z-index:1000;
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap;
+  gap:8px 16px;
+  padding:8px clamp(16px,4vw,40px);
+  background:transparent;
+  backdrop-filter:blur(6px) saturate(1.1);
+  -webkit-backdrop-filter:blur(6px) saturate(1.1);
+  border-bottom:none;
+  box-shadow:none;
+  font-family:var(--font-display);
+  pointer-events:auto;
+  transition:background .3s ease, backdrop-filter .3s ease;
+}
+#site-nav::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height:1px;
+  pointer-events:none;
+  background:linear-gradient(90deg, var(--cyan) 0%, var(--pink) 100%);
+  box-shadow:0 0 8px rgba(0,229,255,0.4), 0 0 12px rgba(255,46,136,0.28);
+}
+#site-nav.scrolled{
+  background:rgba(5,4,15,0.14);
+  backdrop-filter:blur(8px) saturate(1.15);
+  -webkit-backdrop-filter:blur(8px) saturate(1.15);
+}
+
+.nav-logo{
+  display:flex; align-items:center; gap:2px;
+  font-size:clamp(13px,2.2vw,17px);
+  font-weight:700;
+  letter-spacing:1px;
+  text-decoration:none;
+  flex:0 0 auto;
+}
+.nav-logo .half-a{ color:var(--nova-violet); text-shadow:0 0 10px rgba(139,92,246,0.7), 0 1px 8px rgba(5,4,15,0.85); }
+.nav-logo .half-b{ color:var(--nova-blue); text-shadow:0 0 10px rgba(56,189,248,0.7), 0 1px 8px rgba(5,4,15,0.85); }
+#site-nav .nav-logo .half-a{
+  color:var(--pink);
+  text-shadow:
+    0 0 8px rgba(255,46,136,0.55),
+    0 0 16px rgba(0,229,255,0.28),
+    0 1px 8px rgba(5,4,15,0.85);
+}
+#site-nav .nav-logo .half-b{
+  color:var(--cyan);
+  text-shadow:
+    0 0 8px rgba(0,229,255,0.55),
+    0 0 16px rgba(255,46,136,0.28),
+    0 1px 8px rgba(5,4,15,0.85);
+}
+
+.nav-tabs{
+  display:flex; gap:8px; align-items:center;
+  flex-wrap:wrap;
+}
+.nav-tab{
+  appearance:none; cursor:pointer;
+  padding:6px 14px;
+  border-radius:999px;
+  border:1px solid rgba(0,229,255,0.38);
+  background:transparent;
+  color:rgba(243,241,255,0.88);
+  font-family:var(--font-display);
+  font-size:11px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  text-shadow:0 1px 6px rgba(5,4,15,0.9);
+  box-shadow:none;
+  transition:border-color .2s ease, color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.nav-tab:hover{
+  border-color:rgba(255,46,136,0.55);
+  color:#fff;
+  background:rgba(255,255,255,0.03);
+  box-shadow:0 0 10px rgba(0,229,255,0.18);
+}
+.nav-tab.active{
+  border-color:rgba(0,229,255,0.9);
+  color:#fff;
+  background:transparent;
+  box-shadow:
+    0 0 10px rgba(0,229,255,0.45),
+    0 0 18px rgba(255,46,136,0.28);
+}
+
+/* ================= HERO ================= */
+.galaxy-hero{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  padding:clamp(56px,10vw,110px) clamp(18px,5vw,60px) clamp(64px,9vw,96px);
+  text-align:center;
+  background:var(--nova-bg);
+}
+.home-shell{
+  position:relative;
+  min-height:100vh;
+}
+.home-shell #site-footer{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:2;
+}
+@media (max-width: 900px){
+  .home-shell #site-footer{
+    position:static;
+  }
+  body.site-active:not(.secondary-bg){
+    background-image:
+      linear-gradient(180deg, rgba(5,4,15,0.15) 0%, rgba(5,4,15,0.28) 50%, rgba(5,4,15,0.38) 100%),
+      url('/hero-slowloop-page-bg.jpg');
+    background-size:cover;
+    background-position:center top;
+    background-repeat:no-repeat;
+    background-attachment:scroll;
+  }
+}
+.galaxy-hero--home{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding-top:clamp(56px,10vw,110px);
+  padding-bottom:clamp(140px,22vh,220px);
+}
+.galaxy-hero--home .hero-overlay{
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 45%, rgba(5,4,15,0.1) 0%, rgba(5,4,15,0.2) 65%, rgba(5,4,15,0.40) 100%),
+    linear-gradient(180deg, var(--nova-bg) 0%, transparent 14%, transparent 78%, rgba(5,4,15,0.18) 100%);
+}
+.hero-video{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 45%, rgba(5,4,15,0.1) 0%, rgba(5,4,15,0.2) 65%, rgba(5,4,15,0.40) 100%),
+    linear-gradient(180deg, var(--nova-bg) 0%, transparent 14%, transparent 82%, var(--nova-bg) 100%);
+}
+
+.hero-content{
+  position:relative;
+  z-index:1;
+  max-width:760px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:18px;
+}
+.hero-kicker{
+  font-family:var(--font-display);
+  font-size:clamp(10px,1.6vw,12px);
+  letter-spacing:3px;
+  color:var(--nova-blue);
+  text-shadow:0 0 12px rgba(56,189,248,0.5);
+}
+.hero-kicker--welcome{
+  font-weight:800;
+  font-size:clamp(1.05rem, 3.6vw, 1.85rem);
+  letter-spacing:1px;
+  line-height:1.05;
+  color:inherit;
+  text-shadow:none;
+}
+.hero-title{
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:clamp(2.4rem, 9vw, 5rem);
+  line-height:1.05;
+  margin:0;
+  letter-spacing:1px;
+  word-break:break-word;
+}
+.hero-title-a{ color:#fff; text-shadow:0 0 22px rgba(139,92,246,0.6); }
+.hero-title-b{
+  background:linear-gradient(180deg, var(--nova-blue), var(--nova-magenta));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.hero-title--home .hero-title-a{
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.28),
+    0 0 18px rgba(186,230,253,0.32),
+    0 0 36px rgba(56,189,248,0.18);
+}
+.hero-title--home .hero-title-b{
+  filter:
+    drop-shadow(0 0 7px rgba(251,113,133,0.28))
+    drop-shadow(0 0 18px rgba(192,132,252,0.22));
+}
+.hero-tagline{
+  font-family:var(--font-body);
+  font-size:min(20px, 1.42vw);
+  line-height:1.45;
+  color:var(--nova-muted);
+  max-width:none;
+  text-align:center;
+  white-space:nowrap;
+}
+.hero-tagline--bottom{
+  position:absolute;
+  left:50%;
+  bottom:clamp(118px,16vh,168px);
+  z-index:1;
+  width:max-content;
+  max-width:none;
+  margin:0;
+  transform:translateX(-50%);
+  color:rgba(232,228,248,0.92);
+  text-shadow:0 1px 12px rgba(5,4,15,0.85);
+}
+@media (max-width: 768px){
+  .hero-tagline{
+    white-space:normal;
+    font-size:clamp(16px, 3.6vw, 18px);
+    max-width:36rem;
+    padding:0 12px;
+  }
+  .hero-tagline--bottom{
+    width:min(36rem, calc(100% - 40px));
+  }
+}
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:14px;
+  margin-top:6px;
+}
+.hero-cta{
+  appearance:none; cursor:pointer;
+  font-family:var(--font-display);
+  font-size:13px;
+  letter-spacing:1px;
+  padding:15px 26px;
+  border-radius:10px;
+  border:2px solid rgba(255,255,255,0.18);
+  background:rgba(255,255,255,0.04);
+  color:#fff;
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+}
+.hero-cta:hover{ transform:translateY(-2px); border-color:rgba(255,255,255,0.4); }
+.hero-cta-casinos.active{
+  border-color:var(--nova-magenta);
+  background:rgba(232,121,249,0.14);
+  box-shadow:0 0 24px rgba(232,121,249,0.35);
+}
+.hero-cta-sportsbooks.active{
+  border-color:var(--nova-blue);
+  background:rgba(56,189,248,0.14);
+  box-shadow:0 0 24px rgba(56,189,248,0.35);
+}
+
+.galaxy-hero--home .hero-actions{
+  gap:28px;
+  margin-top:18px;
+}
+.galaxy-hero--home .hero-cta{
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:1.4px;
+  padding:18px 40px;
+  border-radius:999px;
+  color:#fff;
+  text-shadow:0 1px 8px rgba(0,0,0,0.45);
+  background:rgba(8,6,22,0.55);
+  backdrop-filter:blur(8px);
+  transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease, filter .22s ease;
+}
+.galaxy-hero--home .hero-cta-casinos{
+  border-color:rgba(232,121,249,0.72);
+  box-shadow:
+    0 0 0 1px rgba(232,121,249,0.12),
+    0 0 18px rgba(232,121,249,0.28),
+    0 0 36px rgba(232,121,249,0.12);
+}
+.galaxy-hero--home .hero-cta-sportsbooks{
+  border-color:rgba(56,189,248,0.72);
+  box-shadow:
+    0 0 0 1px rgba(56,189,248,0.12),
+    0 0 18px rgba(56,189,248,0.28),
+    0 0 36px rgba(56,189,248,0.12);
+}
+.galaxy-hero--home .hero-cta:hover{
+  transform:translateY(-3px);
+  color:#fff;
+  filter:brightness(1.08);
+}
+.galaxy-hero--home .hero-cta-casinos:hover{
+  border-color:rgba(251,180,255,0.95);
+  background:rgba(232,121,249,0.16);
+  box-shadow:
+    0 0 0 1px rgba(232,121,249,0.22),
+    0 8px 22px rgba(8,4,20,0.35),
+    0 0 26px rgba(232,121,249,0.45),
+    0 0 48px rgba(232,121,249,0.22);
+}
+.galaxy-hero--home .hero-cta-sportsbooks:hover{
+  border-color:rgba(125,222,255,0.95);
+  background:rgba(56,189,248,0.16);
+  box-shadow:
+    0 0 0 1px rgba(56,189,248,0.22),
+    0 8px 22px rgba(8,4,20,0.35),
+    0 0 26px rgba(56,189,248,0.45),
+    0 0 48px rgba(56,189,248,0.22);
+}
+.galaxy-hero--home .hero-cta:focus-visible{
+  outline:2px solid rgba(255,255,255,0.7);
+  outline-offset:3px;
+}
+
+/* ================= content sections ================= */
+.listing-section{
+  padding:80px clamp(18px,5vw,60px) 100px;
+  position:relative;
+}
+#casinos,
+#sportsbooks{
+  background:transparent;
+  max-width:1100px;
+  margin:0 auto;
+  padding:40px 20px;
+  color:rgba(255, 255, 255, 0.8);
+  font-family:var(--font-body);
+}
+
+.section-head{
+  max-width:900px;
+  margin:0 auto 46px;
+  display:flex; flex-direction:column; gap:14px;
+  text-align: center;
+  align-items: center;
+  color: #ffffff;
+  font-family:var(--font-body);
+}
+.section-eyebrow{
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:12px; letter-spacing:5.5px;
+  display:flex; align-items:center; gap:10px;
+  justify-content: center;
+}
+#casinos .section-eyebrow{
+  color:var(--nova-magenta);
+  background:linear-gradient(90deg, var(--pink) 0%, var(--nova-magenta) 50%, var(--pink) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 6px rgba(255,46,136,0.55)) drop-shadow(0 0 12px rgba(232,121,249,0.45));
+}
+#sportsbooks .section-eyebrow{
+  color:var(--nova-blue);
+  background:linear-gradient(90deg, var(--cyan) 0%, var(--nova-blue) 50%, var(--cyan) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 6px rgba(0,229,255,0.55)) drop-shadow(0 0 12px rgba(56,189,248,0.45));
+}
+#bonuses .section-eyebrow{
+  color:var(--nova-magenta);
+  background:linear-gradient(90deg, var(--nova-magenta) 0%, var(--pink) 42%, var(--nova-blue) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 6px rgba(255,46,136,0.55)) drop-shadow(0 0 12px rgba(56,189,248,0.45));
+}
+.section-title{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:clamp(24px, 4vw, 38px);
+  max-width:20ch;
+  line-height:1.35;
+}
+.listing-heading{
+  max-width:none;
+}
+@media (min-width:901px){
+  .listing-heading{
+    white-space:nowrap;
+    font-size:clamp(22px, 2.2vw, 30px);
+  }
+}
+.section-copy{ max-width:62ch; font-size:17px; color:rgba(255, 255, 255, 0.75); line-height:1.6; font-family:var(--font-body); }
+
+.offer-stack{
+  max-width:960px;
+  margin:0 auto;
+  display:flex; flex-direction:column; gap:22px;
+  padding-top:12px;
+  overflow:visible;
+}
+
+.offer-card{
+  position:relative;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:22px;
+  padding:22px 26px;
+  border-radius:12px;
+  border:2px solid var(--nova-line);
+  background:rgba(8,6,22,0.58);
+  min-width:0;
+}
+#casinos .offer-card{ border-color:rgba(232,121,249,0.2); }
+#sportsbooks .offer-card{ border-color:rgba(56,189,248,0.2); }
+#casinos .offer-card{
+  transition:border-color .28s ease, box-shadow .28s ease, transform .28s ease, background .28s ease;
+}
+#sportsbooks .offer-card{
+  transition:border-color .28s ease, box-shadow .28s ease, transform .28s ease, background .28s ease;
+}
+#casinos .offer-card:hover{
+  transform:translateY(-3px);
+  border-color:var(--nova-magenta);
+  background:rgba(8,6,22,0.72);
+  box-shadow:0 0 32px rgba(232,121,249,.22), inset 0 0 30px rgba(232,121,249,.05);
+}
+#casinos .offer-card:hover .offer-logo{
+  border-color:var(--nova-magenta);
+  box-shadow:0 0 16px rgba(232,121,249,.4);
+}
+#sportsbooks .offer-card:hover{
+  transform:translateY(-3px);
+  border-color:var(--nova-blue);
+  background:rgba(8,6,22,0.72);
+  box-shadow:0 0 32px rgba(56,189,248,.22), inset 0 0 30px rgba(56,189,248,.05);
+}
+#sportsbooks .offer-card:hover .offer-logo{
+  border-color:var(--nova-blue);
+  box-shadow:0 0 16px rgba(56,189,248,.4);
+}
+
+@property --top-pick-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes top-pick-border-spin {
+  to { --top-pick-angle: 360deg; }
+}
+
+.offer-card.offer-card-top-pick,
+.bonus-card.bonus-card-top-pick{
+  overflow:visible;
+}
+
+.offer-card.offer-card-top-pick::before,
+.bonus-card.bonus-card-top-pick::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  padding:2px;
+  pointer-events:none;
+  z-index:2;
+  background:conic-gradient(
+    from var(--top-pick-angle),
+    transparent 0deg 138deg,
+    rgba(251,191,36,0) 148deg,
+    rgba(251,191,36,.28) 162deg,
+    #ffe08a 172deg,
+    #fff6c8 177deg,
+    #fbbf24 180deg,
+    transparent 180deg 318deg,
+    rgba(251,191,36,0) 328deg,
+    rgba(251,191,36,.28) 342deg,
+    #ffe08a 352deg,
+    #fff6c8 357deg,
+    #fbbf24 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite:exclude;
+  filter:drop-shadow(0 0 5px rgba(251,191,36,.7)) drop-shadow(0 0 10px rgba(255,220,90,.35));
+  animation:top-pick-border-spin 5s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .offer-card.offer-card-top-pick::before,
+  .bonus-card.bonus-card-top-pick::before{
+    animation:none;
+    filter:drop-shadow(0 0 6px rgba(251,191,36,.45));
+    background:linear-gradient(#fbbf24, #fbbf24);
+  }
+  .offer-card-top-pick .offer-featured-tag,
+  .bonus-card-top-pick .offer-featured-tag{
+    animation:none;
+  }
+}
+
+.offer-rank{
+  width:52px; height:52px;
+  border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display);
+  font-size:16px;
+  border:2px solid var(--nova-line);
+  color:var(--nova-muted);
+  flex:0 0 auto;
+}
+#casinos .offer-rank{ border-color:rgba(232,121,249,0.4); }
+#sportsbooks .offer-rank{ border-color:rgba(56,189,248,0.4); }
+.offer-rank.offer-logo{
+  width:148px;
+  height:80px;
+  padding:0;
+  overflow:hidden;
+  background:transparent;
+  border-color:rgba(232,121,249,.46);
+  transition:border-color .28s ease, box-shadow .28s ease;
+}
+.offer-rank.offer-logo.logo-light{
+  background:transparent;
+}
+.offer-rank.offer-logo.thunderpick-logo-box{
+  overflow:hidden;
+  background:transparent;
+}
+.offer-rank.offer-logo.thunderpick-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.bet365-logo-box{
+  overflow:hidden;
+  background:transparent;
+}
+.offer-rank.offer-logo.bet365-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.stake-logo-box{
+  overflow:hidden;
+  background:transparent;
+}
+.offer-rank.offer-logo.stake-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.cloudbet-logo-box{
+  overflow:hidden;
+  background:transparent;
+}
+.offer-rank.offer-logo.cloudbet-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.vave-logo-box{
+  overflow:hidden;
+  background:transparent;
+}
+.offer-rank.offer-logo.vave-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.betfury-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.betfury-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.spinbetter-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.spinbetter-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.megapari-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.megapari-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.coinsgame-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.coinsgame-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.betsio-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.betsio-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.cocobet-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.cocobet-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.bet25-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.bet25-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.rxcasino-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.rxcasino-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.goldenplay-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.goldenplay-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.wildroll-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.wildroll-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.betpanda-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.betpanda-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.epicbet-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.epicbet-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.cybet-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.cybet-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.vavada-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.vavada-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.rainbet-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.rainbet-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.citobet-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.citobet-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.ggbet-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.ggbet-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.n1bet-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.n1bet-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.rollxo-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.rollxo-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.mybookie-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.mybookie-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.everygame-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.everygame-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.betwhale-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.betwhale-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.hyperlucky-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.hyperlucky-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:scale(1.34);
+}
+.offer-rank.offer-logo.bitz-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.bitz-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.bitstarz-logo-box{
+  overflow:hidden;
+  background:transparent;
+}
+.offer-rank.offer-logo.duelbits-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.duelbits-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.mbit-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.mbit-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-rank.offer-logo.bcgame-logo-box{
+  overflow:hidden;
+  padding:0;
+  background:transparent;
+}
+.offer-rank.offer-logo.bcgame-logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+}
+.offer-logo img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  filter:drop-shadow(0 0 7px rgba(255,255,255,.16));
+}
+.offer-logo-placeholder{
+  font-family:var(--font-display);
+  font-size:18px;
+  letter-spacing:1.5px;
+  color:var(--nova-ink);
+  background:linear-gradient(165deg, rgba(255,255,255,.08), #0d0a1e 62%);
+}
+#sportsbooks .offer-logo-placeholder{
+  background:linear-gradient(165deg, rgba(56,189,248,.12), #0d0a1e 62%);
+}
+
+.offer-body{ min-width:0; }
+.offer-top-row{ display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-bottom:8px; }
+/* Shared brand-title glow on list + Bonuses cards.
+   Follows currentColor: white names get the same white halo; colored names keep theirs. */
+.name-glow{
+  text-shadow:
+    0 0 10px color-mix(in srgb, currentColor 45%, transparent),
+    0 0 22px color-mix(in srgb, currentColor 28%, transparent),
+    0 0 40px color-mix(in srgb, currentColor 12%, transparent);
+}
+.offer-name{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:20px;
+  letter-spacing:1px;
+  color:#fff;
+}
+.offer-featured-tag{
+  font-family:var(--font-display);
+  font-size:9px;
+  letter-spacing:1px;
+  color:var(--nova-bg);
+  background:var(--nova-gold);
+  padding:5px 8px;
+  border-radius:4px;
+}
+@keyframes top-pick-badge-glow {
+  0%, 100% {
+    background:#ffe08a;
+    box-shadow:
+      0 0 10px rgba(251,191,36,.95),
+      0 0 22px rgba(255,224,90,.7),
+      0 0 36px rgba(251,191,36,.45);
+  }
+  14%, 36% {
+    background:var(--nova-gold);
+    box-shadow:
+      0 0 4px rgba(251,191,36,.35),
+      0 0 8px rgba(251,191,36,.15);
+  }
+  50% {
+    background:#ffe08a;
+    box-shadow:
+      0 0 10px rgba(251,191,36,.95),
+      0 0 22px rgba(255,224,90,.7),
+      0 0 36px rgba(251,191,36,.45);
+  }
+  64%, 86% {
+    background:var(--nova-gold);
+    box-shadow:
+      0 0 4px rgba(251,191,36,.35),
+      0 0 8px rgba(251,191,36,.15);
+  }
+}
+.offer-card-top-pick .offer-featured-tag,
+.bonus-card-top-pick .offer-featured-tag{
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translate(-50%, -50%);
+  z-index:4;
+  white-space:nowrap;
+  font-size:11px;
+  animation:top-pick-badge-glow 5s linear infinite;
+}
+.offer-rating{
+  font-size:14px; color:var(--nova-gold); letter-spacing:1px;
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--font-body);
+}
+.offer-rating small{ color:var(--nova-muted); }
+.offer-cta .offer-rating{
+  width:100%;
+  justify-content:center;
+  margin:0 0 4px;
+}
+.offer-cta .offer-rating small{
+  font-family:var(--font-display);
+  font-size:8px;
+  font-weight:700;
+  letter-spacing:2.6px;
+  text-transform:uppercase;
+  color:rgba(232,121,249,0.82);
+  text-shadow:
+    0 0 6px rgba(232,121,249,0.42),
+    0 0 14px rgba(167,139,250,0.28);
+}
+#sportsbooks .offer-cta .offer-rating small,
+.offer-cta--sports .offer-rating small{
+  color:rgba(56,189,248,0.88);
+  text-shadow:
+    0 0 6px rgba(56,189,248,0.42),
+    0 0 14px rgba(56,189,248,0.24);
+}
+
+.offer-bonus{
+  font-size:16px;
+  color:var(--nova-ink);
+  margin-bottom:10px;
+  line-height:1.45;
+  font-family:var(--font-body);
+}
+.offer-features{
+  list-style:none; margin:0; padding:0;
+  display:flex; flex-wrap:wrap; gap:8px 18px;
+  font-family:var(--font-body);
+}
+.offer-features li{
+  font-size:14px; color:var(--nova-muted);
+  display:flex; align-items:center; gap:6px;
+}
+.offer-features li::before{ content:"▸"; color:inherit; }
+#casinos .offer-features li::before{ color:var(--nova-magenta); }
+#sportsbooks .offer-features li::before{ color:var(--nova-blue); }
+
+.offer-cta{
+  flex:0 0 auto;
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  text-align:center;
+}
+.offer-btn{
+  font-family:var(--font-display);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:1px;
+  padding:9px 14px;
+  border-radius:8px;
+  text-decoration:none;
+  display:inline-block;
+  white-space:nowrap;
+  color:#f8f5ff;
+  background:rgba(8,6,22,0.72);
+  border:1px solid rgba(232,121,249,0.55);
+  box-shadow:none;
+  backdrop-filter:blur(8px);
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+  cursor: pointer;
+}
+#casinos .offer-btn,
+.offer-btn--casino{
+  background:rgba(10,6,22,0.78);
+  border:1px solid rgba(232,121,249,0.62);
+  color:#f8f5ff;
+  text-shadow:none;
+  box-shadow:none;
+}
+#sportsbooks .offer-btn,
+.offer-btn--sports{
+  background:rgba(6,12,24,0.78);
+  border:1px solid rgba(56,189,248,0.62);
+  color:#f5fbff;
+  text-shadow:none;
+  box-shadow:none;
+}
+.offer-btn:hover{
+  transform:translateY(-1px);
+  background:rgba(232,121,249,0.12);
+  border-color:rgba(232,121,249,0.9);
+  box-shadow:0 0 14px rgba(232,121,249,0.32);
+}
+#casinos .offer-btn:hover,
+.offer-btn--casino:hover{
+  background:rgba(232,121,249,0.12);
+  border-color:var(--nova-magenta);
+  box-shadow:0 0 14px rgba(232,121,249,0.32);
+}
+#sportsbooks .offer-btn:hover,
+.offer-btn--sports:hover{
+  background:rgba(56,189,248,0.12);
+  border-color:var(--nova-blue);
+  box-shadow:0 0 14px rgba(56,189,248,0.32);
+}
+.offer-btn:active{ transform:translateY(1px); box-shadow:none; }
+#casinos .offer-btn:active,
+.offer-btn--casino:active{ box-shadow:0 0 8px rgba(232,121,249,0.18); }
+#sportsbooks .offer-btn:active,
+.offer-btn--sports:active{ box-shadow:0 0 8px rgba(56,189,248,0.18); }
+#bonuses .offer-btn{
+  padding:8px 12px;
+  font-size:10px;
+}
+#bonuses .bonus-card{
+  position:relative;
+  text-align:center;
+  overflow:visible;
+}
+#bonuses .bonus-card-kind{
+  position:absolute;
+  top:10px;
+  right:10px;
+  font-size:9px;
+  font-family:var(--font-display);
+  font-weight:700;
+  letter-spacing:0.5px;
+  border-radius:999px;
+  padding:3px 7px;
+  white-space:nowrap;
+  line-height:1.2;
+}
+#bonuses .bonus-card-kind--casino{
+  color:var(--nova-magenta);
+  border:1px solid color-mix(in srgb, var(--nova-magenta) 33%, transparent);
+}
+#bonuses .bonus-card-kind--sports{
+  color:var(--nova-blue);
+  border:1px solid color-mix(in srgb, var(--nova-blue) 33%, transparent);
+}
+#bonuses .bonus-card-logo{
+  width:148px;
+  height:80px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+#bonuses .bonus-card-name{
+  margin:0;
+  color:#fff;
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:16px;
+  letter-spacing:0.5px;
+  text-align:center;
+}
+#bonuses .bonus-card-hook{
+  margin:0;
+  font-size:15px;
+  line-height:1.6;
+  text-align:center;
+}
+#bonuses .bonus-card-features{
+  flex-grow:1;
+  flex-direction:column;
+  flex-wrap:nowrap;
+  align-items:center;
+  justify-content:flex-start;
+  gap:8px;
+  width:100%;
+}
+#bonuses .bonus-card-features li{
+  justify-content:center;
+  text-align:center;
+  width:100%;
+}
+#bonuses .offer-cta{
+  align-self:center;
+  width:100%;
+}
+
+@media (max-width:720px){
+  .offer-card{ grid-template-columns:1fr; text-align:left; }
+  .offer-rank{ margin-bottom:4px; }
+  .offer-cta{ flex-direction:column; align-items:center; align-self:flex-start; width:max-content; margin-top:6px; }
+  .offer-cta .offer-rating{ width:100%; justify-content:center; }
+  #bonuses .offer-cta{ align-self:center; width:100%; }
+}
+
+.view-all-wrap{
+  display:flex;
+  justify-content:center;
+  margin-top:38px;
+}
+.view-all-btn{
+  min-width:190px;
+  padding:14px 24px 12px;
+  border:2px solid var(--nova-magenta);
+  border-radius:5px;
+  background:rgba(232,121,249,.06);
+  color:var(--nova-magenta);
+  font-family:var(--font-display);
+  font-size:11px;
+  letter-spacing:2px;
+  cursor:pointer;
+  box-shadow:0 4px 0 #6e2166, 0 0 18px rgba(232,121,249,.18);
+  transition:transform .22s ease, background .22s ease, box-shadow .22s ease, color .22s ease;
+}
+.view-all-btn:hover,
+.view-all-btn:focus-visible{
+  transform:translateY(-2px);
+  color:#fff;
+  background:rgba(232,121,249,.16);
+  box-shadow:0 6px 0 #6e2166, 0 0 27px rgba(232,121,249,.4);
+}
+.view-all-btn:active{
+  transform:translateY(3px);
+  box-shadow:0 1px 0 #6e2166, 0 0 14px rgba(232,121,249,.25);
+}
+#sportsbooks .view-all-btn{
+  border-color:var(--nova-blue);
+  background:rgba(56,189,248,.06);
+  color:var(--nova-blue);
+  box-shadow:0 4px 0 #0d6d94, 0 0 18px rgba(56,189,248,.18);
+}
+#sportsbooks .view-all-btn:hover,
+#sportsbooks .view-all-btn:focus-visible{
+  color:#fff;
+  background:rgba(56,189,248,.16);
+  box-shadow:0 6px 0 #0d6d94, 0 0 27px rgba(56,189,248,.4);
+}
+#sportsbooks .view-all-btn:active{
+  box-shadow:0 1px 0 #0d6d94, 0 0 14px rgba(56,189,248,.25);
+}
+
+/* ================= footer ================= */
+#site-footer{
+  position:relative;
+  z-index:2;
+  background:transparent;
+  backdrop-filter:blur(6px) saturate(1.1);
+  -webkit-backdrop-filter:blur(6px) saturate(1.1);
+  border-top:none;
+  box-shadow:none;
+  padding:12px clamp(16px,4vw,40px) 10px;
+  font-family:var(--font-body);
+}
+#site-footer::before{
+  content:"";
+  position:absolute;
+  left:0; right:0; top:0;
+  height:1px;
+  pointer-events:none;
+  background:linear-gradient(90deg, var(--cyan) 0%, var(--pink) 100%);
+  box-shadow:0 0 8px rgba(0,229,255,0.4), 0 0 12px rgba(255,46,136,0.28);
+}
+.footer-row{
+  max-width:1180px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.footer-top{
+  flex:1 1 52%;
+  min-width:0;
+  display:flex; flex-wrap:nowrap; align-items:center; justify-content:space-between; gap:14px;
+}
+.footer-brand{ max-width:280px; }
+.footer-brand .nav-logo{
+  font-family:var(--font-display);
+  font-size:14px;
+  margin-bottom:2px;
+}
+#site-footer .nav-logo .half-a{
+  color:var(--pink);
+  text-shadow:
+    0 0 8px rgba(255,46,136,0.55),
+    0 0 16px rgba(0,229,255,0.28),
+    0 1px 8px rgba(5,4,15,0.85);
+}
+#site-footer .nav-logo .half-b{
+  color:var(--cyan);
+  text-shadow:
+    0 0 8px rgba(0,229,255,0.55),
+    0 0 16px rgba(255,46,136,0.28),
+    0 1px 8px rgba(5,4,15,0.85);
+}
+.footer-brand p{
+  font-size:11px;
+  color:rgba(167,159,201,0.85);
+  line-height:1.35;
+  margin:0;
+  text-shadow:0 1px 6px rgba(5,4,15,0.9);
+}
+.footer-cols{ display:flex; gap:16px; flex-wrap:nowrap; }
+.footer-col h4{
+  font-family:var(--font-display);
+  font-size:10px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:rgba(243,241,255,0.72);
+  margin:0 0 6px;
+  text-shadow:0 1px 6px rgba(5,4,15,0.9);
+}
+.footer-col ul{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  gap:4px 6px;
+}
+.footer-col a{
+  display:inline-block;
+  font-family:var(--font-display);
+  font-size:10px;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  color:rgba(243,241,255,0.88);
+  text-decoration:none;
+  padding:4px 10px;
+  border-radius:999px;
+  border:1px solid rgba(0,229,255,0.38);
+  background:transparent;
+  text-shadow:0 1px 6px rgba(5,4,15,0.9);
+  box-shadow:none;
+  transition:border-color .2s ease, color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.footer-col a:hover{
+  border-color:rgba(255,46,136,0.55);
+  color:#fff;
+  background:rgba(255,255,255,0.03);
+  box-shadow:0 0 10px rgba(0,229,255,0.18);
+}
+
+.footer-disclaimer{
+  flex:1 1 38%;
+  min-width:240px;
+  max-width:420px;
+  margin:0;
+  border-top:none;
+  padding-top:0;
+  display:flex; flex-direction:column; gap:6px;
+}
+.footer-badges{ display:flex; flex-wrap:wrap; gap:6px; }
+.footer-badge{
+  display:inline-block;
+  font-family:var(--font-display);
+  font-size:10px;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  color:rgba(243,241,255,0.88);
+  border:1px solid rgba(0,229,255,0.38);
+  border-radius:999px;
+  background:transparent;
+  padding:4px 10px;
+  text-shadow:0 1px 6px rgba(5,4,15,0.9);
+  box-shadow:none;
+}
+.footer-legal{
+  font-size:11px;
+  color:rgba(167,159,201,0.8);
+  line-height:1.35;
+  max-width:none;
+  margin:0;
+  text-shadow:0 1px 6px rgba(5,4,15,0.9);
+}
+.footer-bottom{
+  max-width:1180px;
+  margin:8px auto 0;
+  padding-top:6px;
+  border-top:none;
+  display:flex; flex-wrap:wrap; justify-content:flex-start; gap:8px;
+  font-family:var(--font-display);
+  font-size:10px;
+  letter-spacing:1px;
+  color:rgba(167,159,201,0.75);
+  text-shadow:0 1px 6px rgba(5,4,15,0.9);
+}
+@media (max-width: 900px){
+  .footer-row{ flex-direction:column; align-items:flex-start; gap:12px; }
+  .footer-top{ flex-wrap:wrap; }
+  .footer-disclaimer{
+    max-width:none;
+    border-top:none;
+    padding-top:4px;
+  }
+}
+
+/* ================= CASINO GUIDE ================= */
+.guide-panel{
+  --guide-accent:var(--nova-magenta);
+  position:relative;
+  z-index:1;
+  min-height:100vh;
+  font-family:var(--font-body);
+  color:rgba(255,255,255,0.85);
+  background:transparent;
+}
+.guide-window{
+  min-height:100vh;
+  width:100%;
+}
+.guide-inner{ max-width:980px; margin:auto; padding:clamp(22px,5vw,72px); }
+.guide-topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:30px;
+  padding:10px 0;
+  background:transparent;
+}
+.guide-back{
+  appearance:none; border:1px solid var(--nova-blue); background:rgba(8,6,22,0.68);
+  color:var(--nova-blue); cursor:pointer; padding:10px 12px; font-family:var(--font-display);
+  font-size:10px; line-height:1.5; text-decoration:none; border-radius:8px;
+  backdrop-filter:blur(8px);
+}
+.mbit-guide-header{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  margin:0 0 22px;
+}
+.mbit-guide-card{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  padding:20px 22px;
+  border-radius:12px;
+  border:1px solid color-mix(in srgb, var(--guide-accent) 45%, transparent);
+  background:rgba(8,6,22,0.68);
+  backdrop-filter:blur(8px);
+  box-shadow:0 0 22px color-mix(in srgb, var(--guide-accent) 10%, transparent);
+}
+.mbit-guide-logo{
+  flex:0 0 96px;
+  width:96px;
+  height:96px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  border-radius:10px;
+  border:1px solid color-mix(in srgb, var(--guide-accent) 45%, transparent);
+  background:transparent;
+}
+.mbit-guide-logo img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="mbit"] .mbit-guide-logo{
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="mbit"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="bet365"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="bet365"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="stake"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="stake"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="cloudbet"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="cloudbet"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="vave"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="vave"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="betfury"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="betfury"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="spinbetter"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="spinbetter"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="sports-duelbits"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="sports-duelbits"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="sports-thunderpick"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  overflow:hidden;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="sports-thunderpick"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="megapari"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="megapari"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="hyperlucky"] .mbit-guide-logo,
+.mbit-guide-header[data-brand="hyper lucky"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="hyperlucky"] .mbit-guide-logo img,
+.mbit-guide-header[data-brand="hyper lucky"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:scale(1.34);
+}
+.mbit-guide-header[data-brand="bitz"] .mbit-guide-logo,
+.mbit-guide-header[data-brand="bitzio"] .mbit-guide-logo,
+.mbit-guide-header[data-brand="bitz.io"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="bitz"] .mbit-guide-logo img,
+.mbit-guide-header[data-brand="bitzio"] .mbit-guide-logo img,
+.mbit-guide-header[data-brand="bitz.io"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="coinsgame"] .mbit-guide-logo,
+.mbit-guide-header[data-brand="coins.game"] .mbit-guide-logo,
+.mbit-guide-header[data-brand="CoinsGame"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="coinsgame"] .mbit-guide-logo img,
+.mbit-guide-header[data-brand="coins.game"] .mbit-guide-logo img,
+.mbit-guide-header[data-brand="CoinsGame"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="betsio"] .mbit-guide-logo,
+.mbit-guide-header[data-brand="bets.io"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="betsio"] .mbit-guide-logo img,
+.mbit-guide-header[data-brand="bets.io"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="cocobet"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="cocobet"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="bet25"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="bet25"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="rxcasino"] .mbit-guide-logo,
+.mbit-guide-header[data-brand="RX Casino"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="rxcasino"] .mbit-guide-logo img,
+.mbit-guide-header[data-brand="RX Casino"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="goldenplay"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="goldenplay"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="wildroll"] .mbit-guide-logo,
+.mbit-guide-header[data-brand="WildRoll"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="wildroll"] .mbit-guide-logo img,
+.mbit-guide-header[data-brand="WildRoll"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="betpanda"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="betpanda"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="epicbet"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="epicbet"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="cybet"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="cybet"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="vavada"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="vavada"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="rainbet"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="rainbet"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="citobet"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="citobet"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="ggbet"] .mbit-guide-logo,
+.mbit-guide-header[data-brand="GG.Bet"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="ggbet"] .mbit-guide-logo img,
+.mbit-guide-header[data-brand="GG.Bet"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="n1bet"] .mbit-guide-logo,
+.mbit-guide-header[data-brand="N1Bet"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="n1bet"] .mbit-guide-logo img,
+.mbit-guide-header[data-brand="N1Bet"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="rollxo"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="rollxo"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="mybookie"] .mbit-guide-logo,
+.mbit-guide-header[data-brand="MyBookie Sports"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="mybookie"] .mbit-guide-logo img,
+.mbit-guide-header[data-brand="MyBookie Sports"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="everygame"] .mbit-guide-logo,
+.mbit-guide-header[data-brand="Everygame Sports"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="everygame"] .mbit-guide-logo img,
+.mbit-guide-header[data-brand="Everygame Sports"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="betwhale"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="betwhale"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-header[data-brand="bcgame"] .mbit-guide-logo{
+  flex:0 0 148px;
+  width:148px;
+  height:80px;
+  padding:0;
+  background:transparent;
+}
+.mbit-guide-header[data-brand="bcgame"] .mbit-guide-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.mbit-guide-copy{
+  flex:1 1 auto;
+  min-width:0;
+}
+.mbit-guide-copy .guide-summary{
+  margin:10px 0 8px;
+}
+.mbit-guide-claim{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  white-space:nowrap;
+  font-family:var(--font-display);
+  background:var(--guide-accent);
+  color:var(--nova-bg);
+  border-radius:8px;
+  padding:14px 18px;
+  font-size:12px;
+  letter-spacing:1px;
+  text-decoration:none;
+  box-shadow:0 5px 0 rgba(0,0,0,.62), 0 0 22px color-mix(in srgb, var(--guide-accent) 28%, transparent);
+  transition:transform 0.2s;
+}
+.mbit-guide-claim:hover{
+  background:var(--nova-gold);
+  transform:translateY(-2px);
+}
+.guide-logo-placeholder{
+  font-family:var(--font-display);
+  font-size:22px;
+  letter-spacing:2px;
+  color:var(--nova-ink);
+}
+.guide-title{ margin:0; font-family:var(--font-display); font-weight:700; font-size:clamp(22px,5vw,38px); line-height:1.25; color:#fff; text-shadow:0 0 24px color-mix(in srgb, var(--guide-accent) 45%, transparent); }
+.guide-summary{ font-size:clamp(17px,2.6vw,20px); line-height:1.5; color:#f2eefe; margin:24px 0 12px; }
+.guide-checked{ color:var(--nova-muted); letter-spacing:2px; font-size:13px; margin:0; }
+.guide-section{
+  margin-top:22px;
+  border:1px solid color-mix(in srgb, var(--guide-accent) 45%, transparent);
+  border-radius:12px;
+  padding:20px 22px;
+  background:rgba(8,6,22,0.68);
+  backdrop-filter:blur(8px);
+  box-shadow:0 0 22px color-mix(in srgb, var(--guide-accent) 10%, transparent);
+}
+.guide-section:nth-of-type(even){ border-color:color-mix(in srgb, var(--nova-blue) 45%, transparent); }
+.guide-section h2{ font-family:var(--font-display); color:var(--nova-gold); font-size:14px; letter-spacing:1px; line-height:1.55; margin:0 0 10px; }
+.guide-section p,.guide-section li{ font-size:16px; line-height:1.55; color:#e6e1f5; }
+.guide-section p{ margin:0; }
+.guide-section ul{ margin:10px 0 0; padding-left:20px; }
+.guide-section a{ color:var(--nova-blue); text-decoration-thickness:1px; text-underline-offset:3px; }
+.guide-notice{
+  margin-top:32px;
+  padding:18px 22px;
+  border:1px solid color-mix(in srgb, var(--nova-gold) 55%, transparent);
+  background:rgba(8,6,22,0.72);
+  backdrop-filter:blur(8px);
+  color:#fff2c9;
+  font-size:14px;
+  line-height:1.5;
+  border-radius:12px;
+}
+.guide-claim{ font-family:var(--font-display); display:block; margin-top:28px; text-align:center; background:var(--guide-accent); color:var(--nova-bg); border-radius:8px; padding:18px; font-size:13px; text-decoration:none; box-shadow:0 5px 0 rgba(0,0,0,.62), 0 0 22px color-mix(in srgb, var(--guide-accent) 28%, transparent); transition: transform 0.2s; }
+.guide-claim:hover{ background:var(--nova-gold); transform:translateY(-2px); }
+
+/* ================= BRAND PAGE TEMPLATE ================= */
+/* Shared by every brand on the BrandPage layout. The accent set and the logo crop
+   arrive as inline custom properties from the brand's guideData page block; the
+   values below are only fallbacks. Content sits straight on the site starfield:
+   no wrapper outline, no glass panels. */
+.brand-page{
+  --db-neon:#3ff09a;
+  --db-neon-deep:#25c476;
+  --db-neon-soft:#9dffd0;
+  --db-muted:#cfd6dc;
+  --db-line:rgba(255,255,255,.13);
+  --db-glow:0 0 10px rgba(255,255,255,.18), 0 0 22px color-mix(in srgb, var(--db-neon) 14%, transparent);
+  --db-glow-strong:0 0 12px rgba(255,255,255,.26), 0 0 26px color-mix(in srgb, var(--db-neon) 20%, transparent);
+  font-family:var(--font-body);
+}
+.db-inner{
+  max-width:940px;
+  padding-top:clamp(14px,2.2vw,26px);
+  padding-bottom:clamp(40px,6vw,80px);
+  padding-left:clamp(16px,3vw,32px);
+  padding-right:clamp(16px,3vw,32px);
+}
+.brand-page .db-nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin:0 0 clamp(18px,3vw,34px);
+}
+.brand-page .db-nav-start{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px 10px;
+  min-width:0;
+}
+.brand-page .db-back{
+  display:inline-flex;
+  margin:0;
+  padding:9px 16px;
+  border-radius:999px;
+  border-color:color-mix(in srgb, var(--db-neon) 50%, transparent);
+  background:transparent;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  color:var(--db-neon-soft);
+  letter-spacing:1px;
+  transition:border-color .2s ease, color .2s ease, transform .2s ease;
+}
+.brand-page .db-back:hover{
+  transform:translateX(-2px);
+  border-color:var(--db-neon);
+  color:#fff;
+}
+.brand-page .db-next{
+  flex-shrink:0;
+  margin-left:auto;
+}
+.brand-page .db-next:hover{
+  transform:translateX(2px);
+}
+.db-stack{
+  max-width:700px;
+  margin:0 auto;
+  text-align:center;
+}
+.brand-page .db-top-pick{
+  display:inline-block;
+  margin:0 0 clamp(18px,3vw,26px);
+  font-size:11px;
+  animation:top-pick-badge-glow 5s linear infinite;
+}
+@media (prefers-reduced-motion: reduce){
+  .brand-page .db-top-pick{ animation:none; }
+}
+.db-brand{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+/* Shared brand-page logo — Duelbits hero size: 72px tall, max-width 300px.
+   Every brand uses this same CSS box. Width stays auto so aspect is kept;
+   extra padding in a file (e.g. Hyper Lucky) is not cropped. */
+.db-logo-mark{
+  --db-mark:72px;
+  display:flex;
+  flex:0 0 auto;
+  align-items:center;
+  justify-content:center;
+  width:auto;
+  max-width:min(300px, 72vw);
+  height:72px;
+  max-height:72px;
+}
+.db-logo-mark img{
+  display:block;
+  width:auto;
+  max-width:min(300px, 72vw);
+  height:72px;
+  max-height:72px;
+  object-fit:contain;
+  object-position:center;
+}
+.db-logo-mark--crop{
+  width:calc(var(--db-mark) * var(--db-logo-box, 1));
+  overflow:hidden;
+}
+.db-logo-mark--crop img{
+  width:calc(var(--db-mark) * var(--db-logo-frames, 1));
+  max-width:none;
+  height:var(--db-mark);
+  object-position:left center;
+}
+.db-eyebrow{
+  margin:clamp(14px,2.4vw,22px) 0 0;
+  font-family:var(--font-display);
+  font-size:clamp(9px,1.1vw,11px);
+  font-weight:500;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:#dfe6ec;
+  text-shadow:var(--db-glow-strong);
+}
+.db-headline{
+  margin:clamp(16px,2.6vw,26px) 0 0;
+  font-family:var(--font-body);
+  font-size:clamp(34px,5.6vw,58px);
+  font-weight:600;
+  line-height:1.08;
+  letter-spacing:-1px;
+}
+.db-headline-a,
+.db-headline-b{ display:block; }
+.db-headline-a{ color:#fff; text-shadow:0 0 14px rgba(255,255,255,.22), 0 0 28px rgba(255,255,255,.1); }
+.db-headline-b{
+  color:var(--db-neon);
+  text-shadow:var(--db-headline-glow, 0 0 22px color-mix(in srgb, var(--db-neon) 85%, transparent), 0 0 58px color-mix(in srgb, var(--db-neon) 70%, transparent));
+}
+.db-sub{
+  max-width:520px;
+  margin:clamp(14px,2.2vw,20px) auto 0;
+  font-size:clamp(17px,2vw,20px);
+  line-height:1.45;
+  text-align:center;
+  color:#fff;
+  text-shadow:
+    0 0 10px rgba(255,255,255,.45),
+    0 0 22px rgba(255,255,255,.28),
+    0 0 40px rgba(255,255,255,.12);
+}
+.db-features{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  margin:clamp(26px,4vw,40px) 0 0;
+  padding:0;
+  list-style:none;
+}
+.db-feature{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  padding:0 clamp(6px,1.2vw,12px);
+  border-left:1px solid var(--db-line);
+}
+.db-feature:first-child{ border-left:0; }
+.db-feature-icon{
+  display:block;
+  width:24px;
+  height:24px;
+  color:#eef4f1;
+}
+.db-feature-icon svg{ display:block; width:100%; height:100%; }
+.db-feature-label{
+  font-family:var(--font-display);
+  font-size:clamp(8px,.95vw,9px);
+  font-weight:500;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:#fff;
+  text-shadow:var(--db-glow-strong);
+}
+.db-feature-note{
+  font-size:clamp(11px,1.25vw,12px);
+  line-height:1.35;
+  color:#dbe2e8;
+  text-shadow:var(--db-glow);
+}
+.db-cta{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  width:fit-content;
+  min-width:clamp(240px,30vw,280px);
+  margin:clamp(28px,4.4vw,44px) auto 0;
+  padding:18px 34px;
+  border:0;
+  border-radius:999px;
+  font-family:var(--font-display);
+  font-size:clamp(11px,1.3vw,13px);
+  font-weight:700;
+  letter-spacing:2px;
+  text-decoration:none;
+  color:#04180e;
+  background:linear-gradient(180deg, var(--db-neon-soft) 0%, var(--db-neon) 42%, var(--db-neon-deep) 100%);
+  box-shadow:0 0 38px color-mix(in srgb, var(--db-neon) 30%, transparent), inset 0 1px 0 rgba(255,255,255,.45);
+  transition:transform .2s ease, filter .2s ease, box-shadow .2s ease;
+}
+.db-cta:hover{
+  transform:translateY(-1px);
+  filter:brightness(1.06);
+  box-shadow:0 0 46px color-mix(in srgb, var(--db-neon) 42%, transparent), inset 0 1px 0 rgba(255,255,255,.5);
+}
+.db-textlink{
+  display:block;
+  width:fit-content;
+  margin:clamp(18px,2.6vw,26px) auto 0;
+  padding:9px 10px;
+  border:0;
+  border-top:1px solid var(--db-line);
+  border-bottom:1px solid var(--db-line);
+  background:transparent;
+  font-family:var(--font-display);
+  font-size:clamp(9px,1.05vw,10px);
+  font-weight:500;
+  letter-spacing:2.4px;
+  text-transform:uppercase;
+  text-decoration:none;
+  color:#d8dde1;
+  cursor:pointer;
+  transition:color .2s ease, border-color .2s ease;
+}
+.db-textlink:hover,
+.db-textlink:focus-visible{
+  border-color:color-mix(in srgb, var(--db-neon) 55%, transparent);
+  color:var(--db-neon);
+}
+.db-block{
+  margin:clamp(34px,5.2vw,56px) 0 0;
+}
+.db-block-title{
+  display:flex;
+  align-items:center;
+  gap:clamp(12px,2vw,20px);
+  margin:0;
+  font-family:var(--font-display);
+  font-size:clamp(9px,1.05vw,10px);
+  font-weight:500;
+  letter-spacing:2.6px;
+  text-transform:uppercase;
+  color:#eef3f7;
+  text-shadow:var(--db-glow-strong);
+}
+.db-block-title::before,
+.db-block-title::after{
+  content:"";
+  flex:1 1 0;
+  height:1px;
+  background:linear-gradient(90deg, transparent, var(--db-line));
+}
+.db-block-title::after{
+  background:linear-gradient(90deg, var(--db-line), transparent);
+}
+.db-pay{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  gap:clamp(14px,2.6vw,26px);
+  margin:clamp(18px,2.8vw,26px) 0 0;
+  padding:0;
+  list-style:none;
+}
+.db-pay-item{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.db-pay-label{
+  font-family:var(--font-display);
+  font-size:clamp(10px,1.15vw,12px);
+  font-weight:700;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+  color:#f2f6f9;
+  text-shadow:var(--db-glow);
+}
+.db-restricted{
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  gap:12px;
+  max-width:560px;
+  margin:clamp(16px,2.4vw,22px) auto 0;
+  text-align:center;
+  font-size:clamp(13px,1.5vw,14px);
+  line-height:1.5;
+  color:#e3e9ee;
+  text-shadow:var(--db-glow);
+}
+.db-restricted-icon{
+  flex:0 0 auto;
+  width:22px;
+  height:22px;
+  margin-top:1px;
+  color:var(--db-neon);
+}
+.db-restricted-icon svg{ display:block; width:100%; height:100%; }
+.db-restricted-more{
+  max-width:560px;
+  margin:12px auto 0;
+  text-align:left;
+  font-size:clamp(12px,1.4vw,13px);
+  line-height:1.6;
+  color:#dbe2e8;
+  text-align:center;
+  text-shadow:var(--db-glow);
+}
+.db-restricted-more a{
+  color:inherit;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.db-restricted-more a:hover{ color:var(--guide-accent); }
+.db-age{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  margin:clamp(30px,4.6vw,48px) 0 0;
+  padding-top:clamp(20px,3vw,28px);
+  border-top:1px solid var(--db-line);
+  text-align:left;
+  font-size:13px;
+  line-height:1.5;
+  color:#dbe2e8;
+  text-shadow:var(--db-glow);
+}
+.db-age-badge{
+  display:inline-flex;
+  flex:0 0 auto;
+  align-items:center;
+  justify-content:center;
+  width:34px;
+  height:34px;
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:50%;
+  font-family:var(--font-display);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.5px;
+  color:#f2f6f9;
+  text-shadow:var(--db-glow);
+}
+@media (max-width:680px){
+  .db-features{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    row-gap:26px;
+  }
+  .db-feature{ border-left:0; }
+  .db-feature:nth-child(even){ border-left:1px solid var(--db-line); }
+}
+  @media (max-width:560px){
+  .db-inner{
+    padding-left:16px;
+    padding-right:16px;
+  }
+  .db-cta{
+    width:auto;
+    min-width:0;
+    padding:18px 22px;
+  }
+  .db-pay{ gap:14px 18px; }
+}
+@media (max-width:560px){
+  .guide-topbar{ align-items:flex-start; }
+  .guide-back{ font-size:8px; }
+  .guide-section{ padding:16px 16px; }
+  .guide-section p,.guide-section li{ font-size:15px; }
+  .mbit-guide-card{
+    flex-wrap:wrap;
+    align-items:flex-start;
+    padding:16px;
+    gap:14px;
+  }
+  .mbit-guide-claim{
+    width:100%;
+  }
+}
+
+@media (max-width:480px){
+  .nav-tab{ padding:5px 10px; font-size:10px; }
+  .hero-actions{ flex-direction:column; width:100%; }
+  .hero-cta{ width:100%; }
+  .galaxy-hero--home .hero-actions{ gap:18px; }
+}
