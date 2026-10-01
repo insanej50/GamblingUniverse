@@ -5,7 +5,7 @@ export type ExtraOperator = {
 };
 
 export const casinoOperators: ExtraOperator[] = [
-  { key: 'sports-duelbits', name: 'Duelbits', url: 'https://duelbits.com/en/sportsbook' },
+  { key: 'sports-duelbits', name: 'Duelbits', url: 'https://record.dbpartners.io/_bXGpJmZemIfUOsjNOfgKeWNd7ZgqdRLk/1/' },
   { key: 'spinbetter', name: 'SpinBetter', url: 'https://spinbetter.com' },
   { key: 'hyperlucky', name: 'Hyper Lucky', url: 'https://lobby.hyperlucky.com/en/' },
   { key: 'mbit', name: 'mBit', url: 'https://www.mbitcasino.io' },

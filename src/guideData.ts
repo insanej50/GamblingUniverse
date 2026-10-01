@@ -181,7 +181,7 @@ const unorderedGuideData: Record<string, any> = {
   "sports-duelbits": {
     kind: "casino",
     name: "Duelbits",
-    claim: "https://duelbits.com/en/sportsbook",
+    claim: "https://record.dbpartners.io/_bXGpJmZemIfUOsjNOfgKeWNd7ZgqdRLk/1/",
     restrictedListUrl: "https://help.duelbits.com/en/articles/4789953-region-blocked-or-restricted-why-s-that",
     accent: "#31c777",
     logo: "/brands/duelbits/logo.png",
